@@ -158,7 +158,119 @@
     <p style="text-align:center">You're here to apply! Take a deep breath, answer each question carefully, and good luck on your journey to becoming an SFRP Staff Member. If your application gets denied, you must wait one week before applying again. If you apply within that period, your application will be ignored.</p><form id="applicationForm">
   <div id="formSections">
 
-<!-- ALL 31 QUESTIONS AND SECTIONS WILL BE INSERTED HERE --></div>
+  <details open>
+    <summary><strong>Basic Information</strong></summary>
+    <p>Answer the following to identify yourself clearly.</p>
+    <label>1. Discord Username, E.g: ERLC-lover123123 *</label>
+    <input type="text" name="Discord Username" required><label>2. Discord ID *</label>
+<input type="text" name="Discord ID" required>
+
+<label>3. Roblox Username, E.g: IloveErlc-999 *</label>
+<input type="text" name="Roblox Username" required>
+
+<label>4. Roblox ID *</label>
+<input type="text" name="Roblox ID" required>
+
+<label>5. State your Time Zone and Age *</label>
+<input type="text" name="Time Zone and Age" required>
+
+  </details>  <details>
+    <summary><strong>SFRP Knowledge</strong></summary>
+    <p>Answer a few short questions to test your general knowledge.</p>
+    <label>6. What does SFRP stand for? *</label>
+    <input type="text" name="What does SFRP stand for" required><label>7. Which of these is an ERLC command? (Check all that apply)</label>
+<select name="ERLC Commands" multiple required>
+  <option value=":cmds">:cmds</option>
+  <option value=":spawncar">:spawncar</option>
+  <option value=":startfire">:startfire</option>
+  <option value=":bring all-civillians">:bring all-civillians</option>
+</select>
+
+<label>8. Are you required to have a livery on as staff? (Yes or No) *</label>
+<input type="text" name="Livery Required" required>
+
+  </details>  <details>
+    <summary><strong>About You</strong></summary>
+    <p>Tell us more about who you are and why you're applying.</p>
+    <label>9. Name 3 of your best qualities (2-3 sentences) *</label>
+    <textarea name="Best Qualities" required></textarea><label>10. Why would you want to join the team? (3-5 sentences) *</label>
+<textarea name="Why Join" required></textarea>
+
+<label>11. Why should we pick you? (3-5 sentences) *</label>
+<textarea name="Why Pick You" required></textarea>
+
+<label>12. Name 1 weakness you have and explain how it might affect the team *</label>
+<textarea name="Weakness" required></textarea>
+
+<label>13. What would you bring to the team? *</label>
+<textarea name="What You Bring" required></textarea>
+
+  </details>  <details>
+    <summary><strong>Scenario Based Questions</strong></summary>
+    <p>Respond to the following situations with as much detail as possible.</p>
+    <label>14. What would you do if you caught a roleplayer whose username is all1234556 after only one person showed up from a bring all command? *</label>
+    <textarea name="Roleplay Response" required></textarea><label>15. How would you handle an unofficial mafia causing havoc without permissions? *</label>
+<textarea name="Unofficial Mafia" required></textarea>
+
+<label>16. What would you do if someone pinged @everyone and no HR/SHR is online? *</label>
+<textarea name="Ping Incident" required></textarea>
+
+<label>17. Create your own high-risk scenario in <b>bold</b> and explain how you would handle it. *</label>
+<textarea name="Custom Scenario" required></textarea>
+
+  </details>  <details>
+    <summary><strong>Rule Knowledge</strong></summary>
+    <p>Define and give examples for each term.</p>
+    <label>18. What is FRP? *</label>
+    <textarea name="FRP" required></textarea><label>19. What is NLR? *</label>
+<textarea name="NLR" required></textarea>
+
+<label>20. What is VDM & RDM? *</label>
+<textarea name="VDM RDM" required></textarea>
+
+<label>21. What is Gun Motion and Cuff Rush (Cuff Motion)? *</label>
+<textarea name="Gun Motion Cuff Rush" required></textarea>
+
+<label>22. What is Tool Abuse? *</label>
+<textarea name="Tool Abuse" required></textarea>
+
+<label>23. What is Mod Call Spamming? *</label>
+<textarea name="Mod Call Spamming" required></textarea>
+
+<label>24. What is NSFW Content? *</label>
+<textarea name="NSFW Content" required></textarea>
+
+<label>25. What is Profanity? *</label>
+<textarea name="Profanity" required></textarea>
+
+  </details>  <details>
+    <summary><strong>Map Grid Check</strong></summary>
+    <p>Using the image below, check the correct boxes for each location.</p>
+    <img class="map" src="map.png" alt="Map Grid">
+    <div class="grid-table">
+      <label><input type="checkbox" name="City Gas Station"> City Gas Station</label>
+      <label><input type="checkbox" name="Housing Suburb"> Housing Suburb</label>
+      <label><input type="checkbox" name="High Rock Entrance"> High Rock (Main Entrance)</label>
+      <label><input type="checkbox" name="Police Station"> Police Station</label>
+    </div>
+  </details>  <details>
+    <summary><strong>Final Confirmation</strong></summary>
+    <p>Please confirm your understanding and submit your signature.</p>
+    <label>27. Do you understand that you must follow all rules both on and off duty? *</label>
+    <input type="text" name="Follow Rules Confirm" required><label>28. Do you understand your application can be denied? *</label>
+<input type="text" name="Application Denial Confirm" required>
+
+<label>29. Do you understand AI usage leads to denial? *</label>
+<input type="text" name="AI Usage Confirm" required>
+
+<label>30. Sign with your Roblox username to acknowledge your responsibilities *</label>
+<input type="text" name="Roblox Signature" required>
+
+<label>31. Anything you would like to tell the reader? <span class="optional">(Optional)</span></label>
+<textarea name="Extra Note"></textarea>
+
+  </details>
+</div>
       <button type="submit">Submit Application</button>
     </form><div id="success-message" style="display:none; text-align:center; margin-top:1rem; color:limegreen; font-weight:bold;">✅ Your application has been submitted successfully!</div>
 
