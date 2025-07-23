@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SFRP Staff Application</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap">
+  <style>
+    :root {
+      --bg-light: #ffffff;
+      --bg-dark: #0f172a;
+      --text-light: #0f172a;
+      --text-dark: #f1f5f9;
+      --accent: #38bdf8;
+      --card-bg: #1e293b;
+      --border-radius: 12px;
+      --gradient: linear-gradient(to right, #1e3a8a, #2563eb, #38bdf8);
+    }body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  transition: background 0.3s, color 0.3s;
+  background: var(--bg-dark);
+  color: var(--text-dark);
+  padding: 1rem;
+  background-image: var(--gradient);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.light-mode {
+  background: var(--bg-light);
+  color: var(--text-light);
+  background-image: none;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.light-mode .container {
+  background: #f3f4f6;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+input, textarea, select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+input, textarea, select {
+  background: #334155;
+  color: white;
+}
+
+.light-mode input,
+.light-mode textarea,
+.light-mode select {
+  background: white;
+  color: black;
+}
+
+button {
+  background: var(--accent);
+  color: white;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0284c7;
+}
+
+#toggle-dark {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+img.logo {
+  display: block;
+  margin: 0 auto 1rem;
+  height: 80px;
+  border-radius: 50%;
+}
+
+#success-message {
+  display: none;
+  text-align: center;
+  padding: 1rem;
+  background-color: #16a34a;
+  color: white;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+  </style>
+</head>
+<body>
+  <button id="toggle-dark">Toggle Dark Mode</button>
+  <img class="logo" src="logo.png" alt="SFRP Logo">
+  <div class="container">
+    <h1>SFRP Staff Application</h1>
+    <form id="applicationForm">
+      <label>What is your Discord username and ID?</label>
+      <input type="text" name="discord" required>
+      <label>What is your Roblox username and ID?</label>
+      <input type="text" name="roblox" required>
+      <label>What is your age?</label>
+      <input type="number" name="age" required>
+      <label>What is your timezone?</label>
+      <input type="text" name="timezone" required>
+      <label>What position are you applying for?</label>
+      <input type="text" name="position" required>
+      <label>Why do you want to be staff?</label>
+      <textarea name="why" rows="4" required></textarea>
+      <label>Do you have any experience in staffing? If so, explain:</label>
+      <textarea name="experience" rows="4" required></textarea>
+      <label>How many hours can you commit each week?</label>
+      <input type="text" name="hours" required>
+      <label>What would you do if someone is breaking the rules?</label>
+      <textarea name="scenario" rows="4" required></textarea>
+      <label>Anything you would like to tell the reader? (Optional)</label>
+      <textarea name="other" rows="3"></textarea>
+      <button type="submit">Submit Application</button>
+    </form>
+    <div id="success-message">✅ Your application has been submitted successfully!</div>
+  </div>  <script>
+    document.getElementById("toggle-dark").onclick = function () {
+      document.body.classList.toggle("light-mode");
+    };
+
+    document.getElementById("applicationForm").onsubmit = function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        discord: form.discord.value,
+        roblox: form.roblox.value,
+        age: form.age.value,
+        timezone: form.timezone.value,
+        position: form.position.value,
+        why: form.why.value,
+        experience: form.experience.value,
+        hours: form.hours.value,
+        scenario: form.scenario.value,
+        other: form.other.value
+      };
+
+      const embed = {
+        title: "📋 New Staff Application",
+        color: 0x38bdf8,
+        fields: [
+          { name: "Discord", value: data.discord },
+          { name: "Roblox", value: data.roblox },
+          { name: "Age", value: data.age },
+          { name: "Timezone", value: data.timezone },
+          { name: "Position Applied For", value: data.position },
+          { name: "Why Staff?", value: data.why },
+          { name: "Experience", value: data.experience },
+          { name: "Weekly Hours", value: data.hours },
+          { name: "Rule-breaking Scenario", value: data.scenario }
+        ]
+      };
+
+      if (data.other) {
+        embed.fields.push({ name: "Additional Info", value: data.other });
+      }
+
+      const payload = {
+        content: "<@&1390315125520728166> 📝 New Staff Application Received",
+        embeds: [embed]
+      };
+
+      fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (res.ok) {
+          document.getElementById("success-message").style.display = "block";
+          form.reset();
+          setTimeout(() => {
+            document.getElementById("success-message").style.display = "none";
+          }, 5000);
+        } else {
+          alert("❌ Submission failed.");
+        }
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("❌ Error sending application.");
+      });
+    };
+  </script></body>
+</html>
