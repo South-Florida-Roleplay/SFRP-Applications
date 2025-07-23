@@ -68,8 +68,14 @@ input, textarea, select, button {
   padding: 10px;
   margin-top: 6px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid #64748b;
   font-size: 1rem;
+  box-sizing: border-box;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--accent);
+  background-color: #1e293b;
 }
 
 input, textarea, select {
@@ -82,6 +88,7 @@ input, textarea, select {
 .light-mode select {
   background: white;
   color: black;
+  border: 1px solid #cbd5e1;
 }
 
 button {
@@ -170,6 +177,14 @@ summary {
   height: 1rem;
 }
 
+.map-image {
+  max-width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+}
+
   </style>
 </head>
 <body>
@@ -178,131 +193,13 @@ summary {
   <div class="container">
     <h1>SFRP Staff Application</h1>
     <p style="text-align:center">You're here to apply! Take a deep breath, answer each question carefully, and good luck on your journey to becoming an SFRP Staff Member. If your application gets denied, you must wait one week before applying again. If you apply within that period, your application will be ignored.</p><form id="applicationForm">
-  <!-- Sections will be auto-inserted with JavaScript below -->
   <div id="formSections"></div>
   <button type="submit">Submit Application</button>
 </form>
+
 <div id="success-message">✅ Your application has been submitted successfully!</div>
 
   </div>  <script>
-    const formSections = document.getElementById('formSections');
-    const sections = [
-      {
-        title: "Basic Information",
-        intro: "Let's start with the basics. Please provide your Discord and Roblox details.",
-        fields: [
-          { label: "Discord Username (e.g., ERLC-lover123123)", name: "discordUsername" },
-          { label: "Discord ID", name: "discordID" },
-          { label: "Roblox Username (e.g., IloveErlc-999)", name: "robloxUsername" },
-          { label: "Roblox ID", name: "robloxID" },
-          { label: "Time Zone and Age", name: "timezoneAge" }
-        ]
-      },
-      {
-        title: "SFRP Knowledge",
-        intro: "These questions test your general knowledge of SFRP and ERLC commands.",
-        fields: [
-          { label: "What does SFRP stand for?", name: "sfrpMeaning" },
-          { label: "Which of these is an ERLC command? (Check all that apply)", name: "commands", type: "checkbox-group", options: [":cmds", ":spawncar", ":startfire", ":bring all-civilians"] },
-          { label: "Are you required to have a livery on as staff?", name: "liveryRequired" }
-        ]
-      },
-      {
-        title: "About You",
-        intro: "Now we’d like to get to know you better. Answer honestly and thoughtfully.",
-        fields: [
-          { label: "Name 3 of your best qualities. (2–3 sentences)", name: "qualities" },
-          { label: "Why would you want to join the team? (3–5 sentences)", name: "whyJoin" },
-          { label: "Why should we pick you? (3–5 sentences)", name: "whyPick" },
-          { label: "Name one weakness and explain how it might affect the team.", name: "weakness" },
-          { label: "What would you bring to the team?", name: "bring" }
-        ]
-      },
-      {
-        title: "Scenarios",
-        intro: "These test your judgement and creativity. Write at least 3 sentences per answer.",
-        fields: [
-          { label: "You brought all for an event but only one user came. Username: all1234556. What do you do?", name: "scenario1" },
-          { label: "An unofficial mafia is causing chaos without permission logs. How do you handle it?", name: "scenario2" },
-          { label: "Someone did an @everyone ping but no HR/SHR is online. What do you do?", name: "scenario3" },
-          { label: "Create your own high-risk scenario (put scenario in bold). Explain how you handle it.", name: "scenario4" }
-        ]
-      },
-      {
-        title: "Rule Knowledge",
-        intro: "These test your knowledge of server rules. Include examples when asked.",
-        fields: [
-          { label: "What is FRP? Explain and give an example.", name: "frp" },
-          { label: "What is NLR? Explain and give an example.", name: "nlr" },
-          { label: "What is VDM & RDM? Explain and give an example.", name: "vdmrdm" },
-          { label: "What is Gun Motion and Cuff Rush? Explain and give an example.", name: "gunmotion" },
-          { label: "What is Tool Abuse? Explain and give an example.", name: "toolabuse" },
-          { label: "What is Mod Call Spamming? Explain and give an example.", name: "modcall" },
-          { label: "What is NSFW Content? Explain and give an example.", name: "nsfw" },
-          { label: "What is Profanity? Explain and give an example.", name: "profanity" }
-        ]
-      },
-      {
-        title: "Map Check",
-        intro: "Use the image provided to locate key areas on the map.",
-        fields: [
-          { label: "Using the image, check the boxes where the locations are:", name: "mapcheck", type: "grid-map" }
-        ]
-      },
-      {
-        title: "Final Confirmation",
-        intro: "Read the final terms and confirm your understanding.",
-        fields: [
-          { label: "You must follow all rules on and off duty. Do you understand?", name: "rulesUnderstand" },
-          { label: "Your application can be denied. Do you understand?", name: "denyUnderstand" },
-          { label: "Use of AI will deny your application. Do you understand?", name: "aiUnderstand" },
-          { label: "Sign with your Roblox username, confirming your dedication.", name: "signature" },
-          { label: "Do you have anything to ask or tell the reader? (Optional)", name: "extra", required: false }
-        ]
-      }
-    ];
-
-    sections.forEach((section, idx) => {
-      const el = document.createElement('details');
-      if (idx === 0) el.open = true;
-      el.innerHTML = `<summary>${section.title}</summary><div class="section-content"><p>${section.intro}</p></div>`;
-      const content = el.querySelector('.section-content');
-
-      section.fields.forEach(f => {
-        const label = document.createElement('label');
-        label.textContent = f.label;
-        content.appendChild(label);
-
-        if (f.type === 'checkbox-group') {
-          f.options.forEach(opt => {
-            const box = document.createElement('div');
-            box.innerHTML = `<label><input type="checkbox" name="${f.name}" value="${opt}"> ${opt}</label>`;
-            content.appendChild(box);
-          });
-        } else if (f.type === 'grid-map') {
-          const grid = document.createElement('div');
-          grid.className = 'grid-table';
-          const letters = ['', 'A', 'B', 'C', 'D', 'E'];
-          const rows = ['1', '2', '3', '4', '5'];
-          letters.forEach(l => grid.innerHTML += `<div><strong>${l}</strong></div>`);
-          rows.forEach(r => {
-            grid.innerHTML += `<div><strong>${r}</strong></div>`;
-            for (let i = 1; i <= 5; i++) {
-              grid.innerHTML += `<div><input type='checkbox' name='map[${r}${String.fromCharCode(64+i)}]'></div>`;
-            }
-          });
-          content.appendChild(grid);
-        } else {
-          const input = document.createElement(f.textarea || f.label.length > 50 ? 'textarea' : 'input');
-          input.name = f.name;
-          if (f.required !== false) input.required = true;
-          content.appendChild(input);
-        }
-      });
-
-      formSections.appendChild(el);
-    });
-
     document.getElementById("toggle-dark").onclick = () => {
       document.body.classList.toggle("light-mode");
     };
