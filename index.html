@@ -148,7 +148,32 @@
         font-size: 0.9rem;
       }
     }
-  </style>
+    details {
+    border: 2px solid #3b82f6;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #1e293b;
+  }
+  details summary {
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  details[open] summary::after {
+    content: "▲";
+    float: right;
+  }
+  details summary::after {
+    content: "▼";
+    float: right;
+  }
+  .light-mode details {
+    background-color: #f3f4f6;
+  }
+</style>
 </head>
 <body>
   <button id="toggle-dark">Toggle Dark Mode</button>
@@ -270,7 +295,10 @@
   <label><input type="checkbox" name="Grid E4"> E4</label>
   <label><input type="checkbox" name="Grid A5"> A5</label>
   <label><input type="checkbox" name="Grid B5"> B5</label>
-  <label><input
+  <label><input type="checkbox" name="Grid C5"> C5</label>
+  <label><input type="checkbox" name="Grid D5"> D5</label>
+  <label><input type="checkbox" name="Grid E5"> E5</label>
+</div>
   </details>  <details>
     <summary><strong>Final Confirmation</strong></summary>
     <p>Please confirm your understanding and submit your signature.</p>
@@ -349,5 +377,18 @@
         console.error(err);
       }
     });
-  </script></body>
-    </html>
+    const allDetails = document.querySelectorAll("details");
+  allDetails.forEach((section, index) => {
+    const requiredInputs = section.querySelectorAll("input[required], textarea[required], select[required]");
+    requiredInputs.forEach(input => {
+      input.addEventListener("input", () => {
+        const allFilled = Array.from(requiredInputs).every(el => el.value.trim() !== "");
+        if (allFilled && allDetails[index + 1] && !allDetails[index + 1].open) {
+          allDetails[index + 1].open = true;
+          allDetails[index + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  });
+</script></body>
+</html>
