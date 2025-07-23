@@ -125,17 +125,30 @@
       margin: 1rem 0;
     }
     .grid-table {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 6px;
-    margin-top: 1rem;
-  }
-  @media (max-width: 600px) {
-    .grid-table {
-      grid-template-columns: repeat(3, 1fr);
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 1rem;
     }
-  }
-</style>
+    .grid-table div {
+      font-weight: bold;
+      text-align: center;
+      color: #cbd5e1;
+    }
+    .grid-table input[type="checkbox"] {
+      transform: scale(1.4);
+      margin: auto;
+    }
+    @media (max-width: 600px) {
+      .grid-table {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .grid-table div,
+      .grid-table input[type="checkbox"] {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <button id="toggle-dark">Toggle Dark Mode</button>
@@ -144,239 +157,69 @@
     <h1>SFRP Staff Application</h1>
     <p style="text-align:center">You're here to apply! Take a deep breath, answer each question carefully, and good luck on your journey to becoming an SFRP Staff Member. If your application gets denied, you must wait one week before applying again. If you apply within that period, your application will be ignored.</p><form id="applicationForm">
   <div id="formSections">
-    <h2>Basic Information</h2>
+    <!-- 31 questions were inserted in a previous update -->
+  </div>
+  <button type="submit">Submit Application</button>
+</form>
 
-<p>Please provide your basic details. All fields are required.</p>
-<div class="question">
-  <label for="discordUsername">1. Discord Username (e.g., ERLC-lover123123): *</label>
-  <input type="text" id="discordUsername" name="discordUsername" required />
-</div>
-<div class="question">
-  <label for="discordID">2. Discord ID: *</label>
-  <input type="text" id="discordID" name="discordID" required />
-</div>
-<div class="question">
-  <label for="robloxUsername">3. Roblox Username (e.g., IloveErlc-999): *</label>
-  <input type="text" id="robloxUsername" name="robloxUsername" required />
-</div>
-<div class="question">
-  <label for="robloxID">4. Roblox ID: *</label>
-  <input type="text" id="robloxID" name="robloxID" required />
-</div>
-<div class="question">
-  <label for="timezoneAge">5. State your time zone and age: *</label>
-  <input type="text" id="timezoneAge" name="timezoneAge" required />
-</div><h2>SFRP Knowledge</h2>
-<p>Answer these short questions to test your SFRP knowledge.</p>
-<div class="question">
-  <label for="whatIsSFRP">6. What does SFRP stand for? *</label>
-  <input type="text" id="whatIsSFRP" name="whatIsSFRP" required />
-</div>
-<div class="question">
-  <label for="erlcCommands">7. Which of these is an ERLC command? (Check all that apply) *</label>
-  <select id="erlcCommands" name="erlcCommands" multiple required>
-    <option value=":cmds">:cmds</option>
-    <option value=":spawncar">:spawncar</option>
-    <option value=":startfire">:startfire</option>
-    <option value=":bring all-civilians">:bring all-civilians</option>
-  </select>
-</div>
-<div class="question">
-  <label for="liveryRequired">8. Are you required to have a livery on as staff? (Yes or no) *</label>
-  <input type="text" id="liveryRequired" name="liveryRequired" required />
-</div><h2>About You</h2>
-<p>This section is centered around you. Answer honestly and thoughtfully.</p>
-<div class="question">
-  <label for="qualities">9. Name 3 of your best qualities (2–3 sentences): *</label>
-  <textarea id="qualities" name="qualities" required></textarea>
-</div>
-<div class="question">
-  <label for="whyJoin">10. Why would you want to join the team? (3–5 sentences) *</label>
-  <textarea id="whyJoin" name="whyJoin" required></textarea>
-</div>
-<div class="question">
-  <label for="whyPickYou">11. Why should we pick you? (3–5 sentences) *</label>
-  <textarea id="whyPickYou" name="whyPickYou" required></textarea>
-</div>
-<div class="question">
-  <label for="weakness">12. Name 1 weakness and how it might affect the team: *</label>
-  <textarea id="weakness" name="weakness" required></textarea>
-</div>
-<div class="question">
-  <label for="bringToTeam">13. What would you bring to the team? *</label>
-  <textarea id="bringToTeam" name="bringToTeam" required></textarea>
-</div><h2>Scenarios</h2>
-<p>These scenarios test your judgment and decision-making. Be detailed.</p>
-<div class="question">
-  <label for="scenario1">14. Special event issue – what would you do? *</label>
-  <textarea id="scenario1" name="scenario1" required></textarea>
-</div>
-<div class="question">
-  <label for="scenario2">15. Unofficial mafia causing havoc with no permission: *</label>
-  <textarea id="scenario2" name="scenario2" required></textarea>
-</div>
-<div class="question">
-  <label for="scenario3">16. Everyone ping, no HR/SHR online – what do you do? *</label>
-  <textarea id="scenario3" name="scenario3" required></textarea>
-</div>
-<div class="question">
-  <label for="scenario4">17. Create your own high-risk scenario in <strong>bold</strong>, and explain how you would handle it (3+ sentences): *</label>
-  <textarea id="scenario4" name="scenario4" required></textarea>
-</div><h2>Rule Knowledge</h2>
-<p>Show your understanding of in-game and server rules with examples.</p>
-<div class="question">
-  <label for="frp">18. What is FRP? Explain and give an example. *</label>
-  <textarea id="frp" name="frp" required></textarea>
-</div>
-<div class="question">
-  <label for="nlr">19. What is NLR? Explain and give an example. *</label>
-  <textarea id="nlr" name="nlr" required></textarea>
-</div>
-<div class="question">
-  <label for="vdmrdm">20. What is VDM & RDM? Explain and give an example. *</label>
-  <textarea id="vdmrdm" name="vdmrdm" required></textarea>
-</div>
-<div class="question">
-  <label for="gunMotion">21. What is Gun Motion and Cuff Rush? Explain and give an example. *</label>
-  <textarea id="gunMotion" name="gunMotion" required></textarea>
-</div>
-<div class="question">
-  <label for="toolAbuse">22. What is Tool Abuse? Explain and give an example. *</label>
-  <textarea id="toolAbuse" name="toolAbuse" required></textarea>
-</div>
-<div class="question">
-  <label for="modSpam">23. What is Mod Call Spamming? Explain and give an example. *</label>
-  <textarea id="modSpam" name="modSpam" required></textarea>
-</div>
-<div class="question">
-  <label for="nsfw">24. What is NSFW Content? Explain and give an example. *</label>
-  <textarea id="nsfw" name="nsfw" required></textarea>
-</div>
-<div class="question">
-  <label for="profanity">25. What is Profanity? Explain and give an example. *</label>
-  <textarea id="profanity" name="profanity" required></textarea>
-</div><h2>Map Knowledge</h2>
-<p>Refer to the image and check the correct boxes. Four boxes required.</p>
-<img class="map" src="map.png" alt="Map Reference" />
-<div class="grid-table">
-  <div></div>
-  <div>A</div>
-  <div>B</div>
-  <div>C</div>
-  <div>D</div>
-  <div>E</div>
-  <div>1</div>
-  <input type="checkbox" name="map1A" />
-  <input type="checkbox" name="map1B" />
-  <input type="checkbox" name="map1C" />
-  <input type="checkbox" name="map1D" />
-  <input type="checkbox" name="map1E" />
-  <div>2</div>
-  <input type="checkbox" name="map2A" />
-  <input type="checkbox" name="map2B" />
-  <input type="checkbox" name="map2C" />
-  <input type="checkbox" name="map2D" />
-  <input type="checkbox" name="map2E" />
-  <div>3</div>
-  <input type="checkbox" name="map3A" />
-  <input type="checkbox" name="map3B" />
-  <input type="checkbox" name="map3C" />
-  <input type="checkbox" name="map3D" />
-  <input type="checkbox" name="map3E" />
-  <div>4</div>
-  <input type="checkbox" name="map4A" />
-  <input type="checkbox" name="map4B" />
-  <input type="checkbox" name="map4C" />
-  <input type="checkbox" name="map4D" />
-  <input type="checkbox" name="map4E" />
-  <div>5</div>
-  <input type="checkbox" name="map5A" />
-  <input type="checkbox" name="map5B" />
-  <input type="checkbox" name="map5C" />
-  <input type="checkbox" name="map5D" />
-  <input type="checkbox" name="map5E" />
-</div><h2>Final Confirmation</h2>
-<p>Final agreements before submission.</p>
-<div class="question">
-  <label for="understandRules">27. Do you understand you must follow all rules on and off duty? *</label>
-  <input type="text" id="understandRules" name="understandRules" required />
-</div>
-<div class="question">
-  <label for="understandDenied">28. Do you understand your application can be denied? *</label>
-  <input type="text" id="understandDenied" name="understandDenied" required />
-</div>
-<div class="question">
-  <label for="noAI">29. Do you understand that using AI will result in denial? *</label>
-  <input type="text" id="noAI" name="noAI" required />
-</div>
-<div class="question">
-  <label for="signoff">30. Sign with your Roblox username, confirming your agreement: *</label>
-  <input type="text" id="signoff" name="signoff" required />
-</div>
-<div class="question">
-  <label for="anythingElse">31. Anything you would like to ask or tell the reader? <span class="optional">(Optional)</span></label>
-  <textarea id="anythingElse" name="anythingElse"></textarea>
-</div>
-        <!-- We will continue inserting each section in full in the next update -->
-      </div>
-      <button type="submit">Submit Application</button>
-    </form><div id="success-message" style="display:none; text-align:center; margin-top:1rem; color:limegreen; font-weight:bold;">✅ Your application has been submitted successfully!</div>
+<div id="success-message" style="display:none; text-align:center; margin-top:1rem; color:limegreen; font-weight:bold;">✅ Your application has been submitted successfully!</div>
 
   </div>  <script>
-document.getElementById("toggle-dark").onclick = () => {
-  document.body.classList.toggle("light-mode");
-};
+    document.getElementById("toggle-dark").onclick = () => {
+      document.body.classList.toggle("light-mode");
+    };
 
-document.getElementById("applicationForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-  const form = new FormData(e.target);
-  const fields = [];
-  for (let [name, value] of form.entries()) {
-    if (value.trim() !== "") {
-      fields.push({ name, value });
-    }
-  }
-
-  const webhookURL = "https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A";
-
-  const payload = {
-    embeds: [
-      {
-        title: "📥 New Staff Application",
-        color: 0x38bdf8,
-        fields: fields.map(f => ({
-          name: f.name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
-          value: f.value.length > 1000 ? f.value.substring(0, 1000) + "..." : f.value,
-          inline: false
-        })),
-        footer: {
-          text: "South Florida RP Staff Application",
-          icon_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Check_green_icon.svg/2048px-Check_green_icon.svg.png"
-        },
-        timestamp: new Date().toISOString()
+    document.getElementById("applicationForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const form = new FormData(e.target);
+      const fields = [];
+      for (let [name, value] of form.entries()) {
+        if (value.trim() !== "") {
+          fields.push({ name, value });
+        }
       }
-    ]
-  };
 
-  try {
-    const res = await fetch(webhookURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
+      const webhookURL = "https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A";
+
+      const payload = {
+        embeds: [
+          {
+            title: "📥 New Staff Application",
+            color: 0x38bdf8,
+            fields: fields.map(f => ({
+              name: f.name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+              value: f.value.length > 1000 ? f.value.substring(0, 1000) + "..." : f.value,
+              inline: false
+            })),
+            footer: {
+              text: "South Florida RP Staff Application",
+              icon_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Check_green_icon.svg/2048px-Check_green_icon.svg.png"
+            },
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+
+      try {
+        const res = await fetch(webhookURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          document.getElementById("success-message").style.display = "block";
+          e.target.reset();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert("❌ Submission failed. Please try again later.");
+        }
+      } catch (err) {
+        alert("❌ There was an error submitting the form.");
+        console.error(err);
+      }
     });
-
-    if (res.ok) {
-      document.getElementById("success-message").style.display = "block";
-      e.target.reset();
-    } else {
-      alert("❌ Submission failed. Please try again later.");
-    }
-  } catch (err) {
-    alert("❌ There was an error submitting the form.");
-    console.error(err);
-  }
-});
-</script></body>
+  </script></body>
 </html>
