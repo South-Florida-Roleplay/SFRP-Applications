@@ -405,6 +405,12 @@
 
         if (res.ok) {
           document.getElementById("success-message").style.display = "block";
+          e.target.reset();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          const errorText = await res.text();
+          showError("Webhook submission failed: " + errorText);
+        }
           document.getElementById("success-message").style.display = "block";
           e.target.reset();
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -416,7 +422,7 @@
         console.error(err);
       }
     });
-    const allDetails = document.querySelectorAll("details");
+    // Removed duplicate allDetails declaration to avoid conflicts
   allDetails.forEach((section, index) => {
     const requiredInputs = section.querySelectorAll("input[required], textarea[required], select[required]");
     requiredInputs.forEach(input => {
@@ -424,6 +430,14 @@
         const allFilled = Array.from(requiredInputs).every(el => el.value.trim() !== "");
         const multiselect = section.querySelector("select[multiple]");
       const multiOK = !multiselect || Array.from(multiselect.selectedOptions).length >= 2;
+      if (allFilled && multiOK) {
+        section.classList.add("completed");
+        section.classList.remove("incomplete");
+      } else {
+        section.classList.remove("completed");
+        section.classList.add("incomplete");
+      }
+      updateProgress();
       if (allFilled && multiOK && allDetails[index + 1] && !allDetails[index + 1].open) {
           allDetails[index + 1].open = true;
           allDetails[index + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -468,9 +482,7 @@
     if (percent < 40) fill.style.background = '#ef4444';
     else if (percent < 80) fill.style.background = '#f59e0b';
     else fill.style.background = '#22c55e';
-    if (percent < 40) fill.style.background = 'white';
-    else if (percent < 80) fill.style.background = 'white';
-    else fill.style.background = 'white';
+    document.getElementById("progressPercent").innerText = `${Math.round(percent)}%`;
     submitBtn.disabled = done < total;
   };
   const allDetails = document.querySelectorAll("details");
