@@ -199,6 +199,22 @@
   <button id="toggle-dark">Toggle Dark Mode</button>
   <img class="logo" src="logo.png" alt="SFRP Logo" />
   <div class="container">
+    <div style="text-align:center; margin-bottom: 1rem;">
+      <span style="font-size: 1.2rem; color: var(--accent); font-weight: bold;">
+        🔑 Enter Test Key:
+      </span>
+      <input id="testKeyInput" type="password" placeholder="Enter test key (e.g., 3434)" style="margin: 0.5rem auto; display: block; max-width: 300px;">
+      <button onclick="checkTestKey()" style="width: auto; padding: 6px 12px;">Submit Key</button>
+    </div>
+    <div id="testActions" style="display:none; text-align:center; margin-bottom: 1.5rem;">
+      <button onclick="autoFillAnswers()">🚀 Submit Test Answers</button>
+      <button onclick="openAdminPanel()">⚙️ Admin Panel</button>
+    </div>
+    <div id="adminPanel" style="display:none; text-align:left; padding: 1rem; border: 2px dashed var(--accent); border-radius: 10px; background: #0f172a; margin-bottom: 1.5rem;">
+      <h2>Admin Panel</h2>
+      <p>You can customize this panel with stats, moderation tools, recent submissions, or debug info.</p>
+      <p><em>Coming soon: CSV export, submission review tools, and more!</em></p>
+    </div>
     <div id="progressTracker">
   <div style="margin-bottom: 0.5rem;">Progress:</div>
   <div style="width: 100%; background: #334155; border-radius: 6px; overflow: hidden; height: 20px;">
@@ -526,5 +542,30 @@
       }
     });
   }
+function checkTestKey() {
+  const input = document.getElementById("testKeyInput").value;
+  if (input === "3434") {
+    document.getElementById("testActions").style.display = "block";
+    document.getElementById("testKeyInput").disabled = true;
+  } else {
+    alert("❌ Invalid test key. Please try again.");
+  }
+}
+
+function autoFillAnswers() {
+  const inputs = document.querySelectorAll("input[type='text'], textarea");
+  const selects = document.querySelectorAll("select");
+  inputs.forEach(i => i.value = "This is a test answer.");
+  selects.forEach(s => {
+    for (let i = 0; i < s.options.length; i++) {
+      s.options[i].selected = true;
+    }
+  });
+  alert("✅ Test answers filled!");
+}
+
+function openAdminPanel() {
+  document.getElementById("adminPanel").style.display = "block";
+}
 </script></body>
 </html>
