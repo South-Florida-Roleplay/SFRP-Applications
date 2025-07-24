@@ -173,12 +173,39 @@
   .light-mode details {
     background-color: #f3f4f6;
   }
+  details.completed summary {
+    color: #10b981;
+  }
+  details.incomplete summary {
+    color: #ef4444;
+  }
+  #progressTracker {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background-color: #1e40af;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  .light-mode #progressTracker {
+    background-color: #bfdbfe;
+    color: black;
+  }
 </style>
 </head>
 <body>
   <button id="toggle-dark">Toggle Dark Mode</button>
   <img class="logo" src="logo.png" alt="SFRP Logo" />
   <div class="container">
+    <div id="progressTracker">
+  <div style="margin-bottom: 0.5rem;">Progress:</div>
+  <div style="width: 100%; background: #334155; border-radius: 6px; overflow: hidden; height: 20px;">
+    <div id="progressBarFill" style="height: 100%; width: 0%; background: #38bdf8; transition: width 0.3s ease, background 0.3s ease;"></div>
+  </div>
+  <div id="progressPercent" style="margin-top: 0.5rem; font-weight: bold;">0%</div>
+</div>
     <h1>SFRP Staff Application</h1>
     <p style="text-align:center">You're here to apply! Take a deep breath, answer each question carefully, and good luck on your journey to becoming an SFRP Staff Member. If your application gets denied, you must wait one week before applying again. If you apply within that period, your application will be ignored.</p><form id="applicationForm">
   <div id="formSections">
@@ -326,8 +353,19 @@
     };
 
     document.getElementById("applicationForm").addEventListener("submit", async function(e) {
+      localStorage.removeItem("sfrpAppData");
       e.preventDefault();
       const form = new FormData(e.target);
+      const formObj = {};
+      form.forEach((value, key) => {
+        if (formObj[key]) {
+          if (!Array.isArray(formObj[key])) formObj[key] = [formObj[key]];
+          formObj[key].push(value);
+        } else {
+          formObj[key] = value;
+        }
+      });
+      localStorage.setItem("sfrpAppData", JSON.stringify(formObj));
       const fields = [];
       for (let [name, value] of form.entries()) {
         if (value.trim() !== "") {
@@ -370,10 +408,10 @@
           e.target.reset();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-          alert("❌ Submission failed. Please try again later.");
+          showError("Webhook submission failed. Please check your internet connection or try again later.");
         }
       } catch (err) {
-        alert("❌ There was an error submitting the form.");
+        showError("An unexpected error occurred. Please contact staff if this continues.");
         console.error(err);
       }
     });
@@ -390,5 +428,84 @@
       });
     });
   });
+  const allDetails = document.querySelectorAll("details");
+  allDetails.forEach((section, index) => {
+    const requiredInputs = section.querySelectorAll("input[required], textarea[required], select[required]");
+    const checkCompletion = () => {
+      const allFilled = Array.from(requiredInputs).every(el => el.type === 'checkbox' ? true : el.value.trim() !== "");
+      const checkboxes = section.querySelectorAll("input[type='checkbox']");
+      if (checkboxes.length >= 4) {
+        const checked = Array.from(checkboxes).filter(cb => cb.checked);
+        if (checked.length < 4) return;
+      }
+      section.classList.add("completed");
+      section.classList.remove("incomplete");
+      if (allFilled && allDetails[index + 1] && !allDetails[index + 1].open) {
+        allDetails[index + 1].open = true;
+        allDetails[index + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+    requiredInputs.forEach(input => input.addEventListener("input", checkCompletion));
+    section.classList.add("incomplete");
+  });
+
+  function showError(message) {
+    alert("❌ Error submitting application: " + message);
+  }
+  const formElement = document.getElementById("applicationForm");
+  const submitBtn = formElement.querySelector("button[type='submit']");
+  const updateProgress = () => {
+    const total = document.querySelectorAll("details").length;
+    const done = document.querySelectorAll("details.completed").length;
+    document.getElementById("progressPercent").innerText = `${Math.round((done / total) * 100)}%`;
+    const percent = (done / total) * 100;
+    const fill = document.getElementById("progressBarFill");
+    fill.style.width = `${percent}%`;
+    if (percent < 40) fill.style.background = '#ef4444';
+    else if (percent < 80) fill.style.background = '#facc15';
+    else fill.style.background = '#22c55e';
+    submitBtn.disabled = done < total;
+  };
+  const allDetails = document.querySelectorAll("details");
+  allDetails.forEach((section, index) => {
+    const requiredInputs = section.querySelectorAll("input[required], textarea[required], select[required]");
+    const checkCompletion = () => {
+      const allFilled = Array.from(requiredInputs).every(el => el.type === 'checkbox' ? true : el.value.trim() !== "");
+      const checkboxes = section.querySelectorAll("input[type='checkbox']");
+      if (checkboxes.length >= 4) {
+        const checked = Array.from(checkboxes).filter(cb => cb.checked);
+        if (checked.length < 4) return;
+      }
+      section.classList.add("completed");
+      section.classList.remove("incomplete");
+      if (allFilled && allDetails[index + 1] && !allDetails[index + 1].open) {
+        allDetails[index + 1].open = true;
+        allDetails[index + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      updateProgress();
+    };
+    requiredInputs.forEach(input => input.addEventListener("input", checkCompletion));
+    section.classList.add("incomplete");
+  });
+  updateProgress();
+
+  if (localStorage.getItem("sfrpAppData")) {
+    const saved = JSON.parse(localStorage.getItem("sfrpAppData"));
+    Object.keys(saved).forEach(key => {
+      const field = formElement.querySelector(`[name='${key}']`);
+      if (field) {
+        if (field.type === 'checkbox') {
+          const checkboxes = formElement.querySelectorAll(`input[name='${key}']`);
+          checkboxes.forEach(cb => {
+            if (Array.isArray(saved[key]) && saved[key].includes(cb.value)) {
+              cb.checked = true;
+            }
+          });
+        } else {
+          field.value = saved[key];
+        }
+      }
+    });
+  }
 </script></body>
 </html>
