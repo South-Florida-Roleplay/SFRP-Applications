@@ -94,7 +94,7 @@
     #toggle-dark {
       position: fixed;
       top: 10px;
-      right: 20px;
+      right: 60px;
       padding: 6px 12px;
       border: none;
       border-radius: 6px;
@@ -103,229 +103,240 @@
       cursor: pointer;
       z-index: 1000;
     }
+    #test-btn {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      background: #1e293b;
+      color: white;
+      z-index: 1000;
+    }
+    #password-popup {
+      position: fixed;
+      top: 50px;
+      right: 20px;
+      background: #1e293b;
+      padding: 10px;
+      border-radius: 10px;
+      display: none;
+      z-index: 1000;
+    }
+    #password-popup input {
+      width: 100%;
+      margin-bottom: 6px;
+    }
     img.logo {
       display: block;
       margin: 0 auto 1rem;
       height: 80px;
       border-radius: 50%;
     }
-    .key-icon {
-      position: fixed;
-      top: 10px;
-      right: 60px;
-      background: #334155;
-      border-radius: 50%;
-      padding: 10px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      z-index: 1000;
-    }
-    #testModeContainer {
-      display: none;
-      position: fixed;
-      top: 60px;
-      right: 20px;
-      background: #1e293b;
-      padding: 1rem;
-      border-radius: 8px;
-      z-index: 1000;
-    }
-    .section {
-      margin: 1.5rem 0;
-    }
-    .question {
-      margin-top: 1rem;
-    }
-    .optional {
-      font-style: italic;
-      font-size: 0.9rem;
-      color: #cbd5e1;
-    }
-  </style>
+    </style>
 </head>
 <body>
-  <img class="logo" src="logo.png" alt="SFRP Logo" />
-  <button id="toggle-dark">Toggle Dark Mode</button>
-  <div class="key-icon" id="keyIcon">🔑</div>
-  <div id="testModeContainer">
-    <input type="password" id="testPassword" placeholder="Password..." />
-    <button onclick="submitTestMode()">Submit Test</button>
+  <button id="toggle-dark">☀</button>
+  <button id="test-btn">🔑</button>
+  <div id="password-popup">
+    <input type="password" id="test-password" placeholder="Password" />
+    <button onclick="unlockTest()">Enter</button>
   </div>
-
+  <img class="logo" src="logo.png" alt="SFRP Logo" />
   <div class="container">
     <h1>SFRP Staff Application</h1>
-    <form id="applicationForm">
-      <label>1. Discord Username *</label>
-      <input type="text" name="Discord Username" required />
-      <label>2. Discord ID *</label>
-      <input type="text" name="Discord ID" required />
-      <label>3. Roblox Username *</label>
-      <input type="text" name="Roblox Username" required />
-      <label>4. Roblox ID *</label>
-      <input type="text" name="Roblox ID" required />
-      <label>5. State your Time Zone and Age *</label>
-      <input type="text" name="Time Zone and Age" required />
-
-<h2>Short Knowledge Questions</h2>
-      <label>6. What does SFRP stand for? *</label>
-      <input type="text" name="What does SFRP stand for" required />
-      <label>7. Which of these is an ERLC command? (Select at least 2)</label>
-      <select name="ERLC Commands" multiple required>
-        <option value=":cmds">:cmds</option>
-        <option value=":spawncar">:spawncar</option>
-        <option value=":startfire">:startfire</option>
-        <option value=":bring all-civillians">:bring all-civillians</option>
-      </select>
-      <label>8. Are you required to have a livery on as staff? *</label>
-      <input type="text" name="Livery Requirement" required />
-
-      <h2>About You</h2>
-      <label>9. Name 3 of your best qualities *</label>
-      <textarea name="Qualities" required></textarea>
-      <label>10. Why do you want to join? *</label>
-      <textarea name="Why Join" required></textarea>
-      <label>11. Why should we pick you? *</label>
-      <textarea name="Why Pick" required></textarea>
-      <label>12. One weakness and how it affects the team *</label>
-      <textarea name="Weakness" required></textarea>
-      <label>13. What would you bring to the team? *</label>
-      <textarea name="Bring to Team" required></textarea>
-
-      <h2>Scenarios</h2>
-      <label>14. Special event - only one person came *</label>
-      <textarea name="Scenario 1" required></textarea>
-      <label>15. Unofficial mafia causing havoc *</label>
-      <textarea name="Scenario 2" required></textarea>
-      <label>16. Someone pinged everyone, no HRs on *</label>
-      <textarea name="Scenario 3" required></textarea>
-      <label>17. Create your own high risk scenario *</label>
-      <textarea name="Scenario 4" required></textarea>
-
-      <h2>Rule Definitions</h2>
-      <label>18. What is FRP? *</label>
-      <textarea name="FRP" required></textarea>
-      <label>19. What is NLR? *</label>
-      <textarea name="NLR" required></textarea>
-      <label>20. What is VDM & RDM? *</label>
-      <textarea name="VDM RDM" required></textarea>
-      <label>21. What is Gun Motion & Cuff Rush? *</label>
-      <textarea name="Gun Motion Cuff Rush" required></textarea>
-      <label>22. What is Tool Abuse? *</label>
-      <textarea name="Tool Abuse" required></textarea>
-      <label>23. What is Mod Call Spamming? *</label>
-      <textarea name="Mod Call Spamming" required></textarea>
-      <label>24. What is NSFW Content? *</label>
-      <textarea name="NSFW" required></textarea>
-      <label>25. What is Profanity? *</label>
-      <textarea name="Profanity" required></textarea>
-
-      <h2>Map Location Grid</h2>
-      <p>Check the correct boxes for: City Gas Station, Housing Suburb, High Rock Entrance, Police Station.</p>
-      <img src="map.png" alt="Map Grid" style="width:100%; max-width:600px;" />
-      <div>
-        A1 <input type="checkbox" name="Map A1" />
-        B2 <input type="checkbox" name="Map B2" />
-        C3 <input type="checkbox" name="Map C3" />
-        D4 <input type="checkbox" name="Map D4" />
-        E5 <input type="checkbox" name="Map E5" />
+    <p style="text-align:center">You're here to apply! Take a deep breath, answer each question carefully, and good luck on your journey to becoming an SFRP Staff Member. If your application gets denied, you must wait one week before applying again.</p>
+    <div id="progress" style="margin: 1rem 0;">
+      <div style="width: 100%; background: #4b5563; height: 20px; border-radius: 10px;">
+        <div id="bar" style="width: 0%; height: 100%; border-radius: 10px; background: white;"></div>
       </div>
+      <div id="percent" style="text-align:center; margin-top: 4px;">0%</div>
+    </div>
+    <form id="applicationForm">
+      <details open>
+        <summary>Basic Info</summary>
+        <label>1. Discord Username *</label>
+        <input name="Discord Username" required />
+        <label>2. Discord ID *</label>
+        <input name="Discord ID" required />
+        <label>3. Roblox Username *</label>
+        <input name="Roblox Username" required />
+        <label>4. Roblox ID *</label>
+        <input name="Roblox ID" required />
+        <label>5. Timezone and Age *</label>
+        <input name="Timezone and Age" required />
+      </details>
 
-      <h2>Final Confirmation</h2>
-      <label>27. Do you understand all rules on and off duty? *</label>
-      <input type="text" name="Rules Confirmation" required />
-      <label>28. Your application can be denied, do you understand? *</label>
-      <input type="text" name="Denial Confirmation" required />
-      <label>29. Using AI will deny your application. Do you understand? *</label>
-      <input type="text" name="AI Confirmation" required />
-      <label>30. Sign with your Roblox Username *</label>
-      <input type="text" name="Signature" required />
-      <label>31. Anything to tell the reader? (Optional)</label>
-      <textarea name="Final Message"></textarea>
+      <details>
+        <summary>SFRP Knowledge</summary>
+        <label>6. What does SFRP stand for? *</label>
+        <input name="What is SFRP" required />
+        <label>7. Which of these is an ERLC command? (Check all that apply) *</label>
+        <select name="ERLC Commands" multiple required>
+          <option value=":cmds">:cmds</option>
+          <option value=":spawncar">:spawncar</option>
+          <option value=":startfire">:startfire</option>
+          <option value=":bring all-civilians">:bring all-civilians</option>
+        </select>
+        <label>8. Are you required to wear a livery? *</label>
+        <input name="Livery required" required />
+      </details>
 
-      <button type="submit">Submit Application</button>
+      <details>
+        <summary>About You</summary>
+        <label>9. Your best qualities *</label>
+        <textarea name="Best Qualities" required></textarea>
+        <label>10. Why join the team? *</label>
+        <textarea name="Why Join" required></textarea>
+        <label>11. Why should we pick you? *</label>
+        <textarea name="Why Pick" required></textarea>
+        <label>12. Weakness and impact on team *</label>
+        <textarea name="Weakness" required></textarea>
+        <label>13. What would you bring to the team? *</label>
+        <textarea name="What You Bring" required></textarea>
+      </details>
+
+      <details>
+        <summary>Scenario Based</summary>
+        <label>14. One user joined from bring all. What do you do? *</label>
+        <textarea name="Bring All Incident" required></textarea>
+        <label>15. Unofficial mafia causing havoc. No permission logs. *</label>
+        <textarea name="Mafia Issue" required></textarea>
+        <label>16. Everyone ping and no HR online. *</label>
+        <textarea name="Ping Problem" required></textarea>
+        <label>17. Custom high risk scenario (bold it). *</label>
+        <textarea name="Custom Scenario" required></textarea>
+      </details>
+
+      <details>
+        <summary>Rule Knowledge</summary>
+        <label>18. What is FRP? *</label>
+        <textarea name="FRP" required></textarea>
+        <label>19. What is NLR? *</label>
+        <textarea name="NLR" required></textarea>
+        <label>20. What is VDM & RDM? *</label>
+        <textarea name="VDM RDM" required></textarea>
+        <label>21. What is Gun/Cuff Motion? *</label>
+        <textarea name="Gun Motion" required></textarea>
+        <label>22. What is Tool Abuse? *</label>
+        <textarea name="Tool Abuse" required></textarea>
+        <label>23. What is Mod Call Spamming? *</label>
+        <textarea name="Mod Call Spamming" required></textarea>
+        <label>24. What is NSFW Content? *</label>
+        <textarea name="NSFW" required></textarea>
+        <label>25. What is Profanity? *</label>
+        <textarea name="Profanity" required></textarea>
+      </details>
+
+      <details>
+        <summary>Grid Location Check</summary>
+        <p>Check the boxes for: City Gas Station, Housing Suburb, High Rock (Main Entrance), Police Station.</p>
+        <img src="map.png" alt="Map" style="width: 100%; border-radius: 8px;" />
+        <div id="grid-section" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 10px;">
+          ${["A","B","C","D","E"].map(l => [1,2,3,4,5].map(n => `<label><input type="checkbox" name="Grid" value="${l}${n}"> ${l}${n}</label>`).join("")).join("")}
+        </div>
+      </details>
+
+      <details>
+        <summary>Final Confirmation</summary>
+        <label>27. Do you understand to follow rules? *</label>
+        <input name="Rules Confirm" required />
+        <label>28. Do you understand your app can be denied? *</label>
+        <input name="Denial Confirm" required />
+        <label>29. AI usage will deny you. Do you understand? *</label>
+        <input name="AI Confirm" required />
+        <label>30. Sign with your Roblox username *</label>
+        <input name="Roblox Signature" required />
+        <label>31. Anything you'd like to say? (Optional)</label>
+        <textarea name="Notes"></textarea>
+      </details>
+
+      <button type="submit" style="width: 100%;">Submit Application</button>
     </form>
-
-    <div id="success-message" style="display:none; text-align:center; color:lime; margin-top:10px;">
-      ✅ Your application has been submitted successfully!
+    <div id="success" style="display:none; margin-top: 1rem; color: lightgreen; font-weight: bold; text-align:center;">
+      ✅ Application Submitted!
     </div>
   </div>
+  <script>
+    const toggleDark = document.getElementById("toggle-dark");
+    toggleDark.onclick = () => {
+      document.body.classList.toggle("light-mode");
+    };
 
-<script>
-    const form = document.getElementById("applicationForm");
-    const successMessage = document.getElementById("success-message");
-
-    // TEST BUTTON
     const testBtn = document.getElementById("test-btn");
-    const passwordPopup = document.getElementById("password-popup");
-    const testPasswordInput = document.getElementById("test-password");
+    const popup = document.getElementById("password-popup");
+    testBtn.onclick = () => {
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    };
 
-    testBtn.addEventListener("click", () => {
-      passwordPopup.style.display = "block";
-    });
-
-    document.getElementById("test-submit").addEventListener("click", () => {
-      const pw = testPasswordInput.value.trim();
-      if (pw === "3434") {
-        passwordPopup.style.display = "none";
-        autofillTestAnswers();
+    function unlockTest() {
+      const pass = document.getElementById("test-password").value;
+      if (pass === "3434") {
+        popup.innerHTML = `
+          <button onclick="fillRandom()">Submit Test Answers</button>
+          <button onclick="openAdmin()">Admin Panel</button>`;
       } else {
-        alert("❌ Incorrect password.");
+        alert("Wrong password.");
       }
-    });
-
-    function autofillTestAnswers() {
-      const inputs = form.querySelectorAll("input[type=text], textarea");
-      inputs.forEach((el) => {
-        if (!el.name.toLowerCase().includes("id") && !el.name.toLowerCase().includes("username")) {
-          el.value = "This is a test answer.";
-        } else {
-          el.value = "123456";
-        }
-      });
-
-      // Select at least 2 options in select[multiple]
-      const select = form.querySelector("select[multiple]");
-      if (select) {
-        select.options[0].selected = true;
-        select.options[1].selected = true;
-      }
-
-      // Check some checkboxes
-      const checkboxes = form.querySelectorAll("input[type=checkbox]");
-      checkboxes.forEach((cb, i) => {
-        if (i < 4) cb.checked = true;
-      });
     }
 
-    form.addEventListener("submit", async (e) => {
+    function fillRandom() {
+      const inputs = document.querySelectorAll("input, textarea, select");
+      inputs.forEach(el => {
+        if (el.type === "checkbox") el.checked = Math.random() > 0.8;
+        else if (el.multiple) {
+          Array.from(el.options).forEach(opt => opt.selected = Math.random() > 0.5);
+        } else {
+          el.value = "Test " + Math.random().toString(36).substring(7);
+        }
+      });
+      updateProgress();
+    }
+
+    function openAdmin() {
+      alert("Admin panel not implemented yet.");
+    }
+
+    const form = document.getElementById("applicationForm");
+    const webhookURL = "https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A";
+
+    form.onsubmit = async (e) => {
       e.preventDefault();
 
       const data = new FormData(form);
-      const fields = [];
+      const entries = {};
+      for (const [key, val] of data.entries()) {
+        if (!entries[key]) entries[key] = val;
+        else {
+          if (!Array.isArray(entries[key])) entries[key] = [entries[key]];
+          entries[key].push(val);
+        }
+      }
 
-      data.forEach((value, key) => {
-        fields.push({
-          name: key,
-          value: value.toString()
-        });
-      });
+      const gridChecks = document.querySelectorAll("input[name='Grid']:checked");
+      if (gridChecks.length !== 4) {
+        alert("❌ You must select exactly 4 locations on the map.");
+        return;
+      }
 
-      const webhookURL = "https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A";
+      const fields = Object.entries(entries).map(([name, value]) => ({
+        name,
+        value: Array.isArray(value) ? value.join(", ") : value
+      }));
 
-      const payload = {
+      const embed = {
         embeds: [{
-          title: "📥 New Staff Application",
+          title: "📩 SFRP Staff Application",
           color: 0x38bdf8,
-          fields: fields.map(f => ({
-            name: f.name,
-            value: f.value.length > 1000 ? f.value.slice(0, 1000) + "..." : f.value,
-            inline: false
-          })),
+          fields,
+          timestamp: new Date().toISOString(),
           footer: {
-            text: "South Florida RP",
-            icon_url: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Check_green_icon.svg"
-          },
-          timestamp: new Date().toISOString()
+            text: "Submitted via SFRP Form"
+          }
         }]
       };
 
@@ -333,21 +344,103 @@
         const res = await fetch(webhookURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(embed)
         });
-
         if (res.ok) {
-          successMessage.style.display = "block";
+          document.getElementById("success").style.display = "block";
           form.reset();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          updateProgress();
+          window.scrollTo(0, 0);
         } else {
-          alert("❌ Failed to send. Check your internet or try again later.");
+          alert("❌ Failed to send. Please try again.");
         }
-      } catch (err) {
-        alert("❌ Submission error.");
-        console.error(err);
+      } catch {
+        alert("❌ Error sending to Discord webhook.");
       }
+    };
+
+    // Auto section open + progress
+    const sections = document.querySelectorAll("details");
+    const percentBar = document.getElementById("bar");
+    const percentLabel = document.getElementById("percent");
+    const submitBtn = form.querySelector("button[type='submit']");
+
+    sections.forEach((section, idx) => {
+      const requiredInputs = section.querySelectorAll("input[required], textarea[required], select[required]");
+      const checkAndUpdate = () => {
+        const filled = Array.from(requiredInputs).every(el => {
+          if (el.type === "checkbox") return true;
+          if (el.multiple) return el.selectedOptions.length >= 2;
+          return el.value.trim() !== "";
+        });
+        if (filled && idx + 1 < sections.length) {
+          sections[idx + 1].open = true;
+        }
+
+        const completed = Array.from(sections).filter(d => {
+          const req = d.querySelectorAll("input[required], textarea[required], select[required]");
+          return Array.from(req).every(el => el.value.trim() !== "");
+        }).length;
+        const percent = Math.round((completed / sections.length) * 100);
+        percentBar.style.width = percent + "%";
+        percentLabel.innerText = percent + "%";
+        if (percent < 40) percentBar.style.background = "red";
+        else if (percent < 80) percentBar.style.background = "orange";
+        else percentBar.style.background = "green";
+
+        submitBtn.disabled = completed < sections.length;
+      };
+      requiredInputs.forEach(i => {
+        i.addEventListener("input", checkAndUpdate);
+        if (i.type === "select-multiple") {
+          i.addEventListener("change", checkAndUpdate);
+        }
+      });
     });
+    updateProgress();
   </script>
+</body>
+</html>
+<details>
+        <summary><strong>Map Grid Check</strong></summary>
+        <p>Using the image below, check exactly 4 correct boxes for the following locations:<br>
+        <strong>City Gas Station</strong>, <strong>Housing Suburb</strong> (choose 1 box), <strong>High Rock (Main Entrance)</strong>, and <strong>Police Station</strong>.</p>
+        <img class="map" src="map.png" alt="Map Grid" style="width:100%; border-radius:10px;" />
+        <div class="grid-table">
+          <div></div><div>A</div><div>B</div><div>C</div><div>D</div><div>E</div>
+          <div>1</div><input type="checkbox" name="Grid" value="A1" /><input type="checkbox" name="Grid" value="B1" /><input type="checkbox" name="Grid" value="C1" /><input type="checkbox" name="Grid" value="D1" /><input type="checkbox" name="Grid" value="E1" />
+          <div>2</div><input type="checkbox" name="Grid" value="A2" /><input type="checkbox" name="Grid" value="B2" /><input type="checkbox" name="Grid" value="C2" /><input type="checkbox" name="Grid" value="D2" /><input type="checkbox" name="Grid" value="E2" />
+          <div>3</div><input type="checkbox" name="Grid" value="A3" /><input type="checkbox" name="Grid" value="B3" /><input type="checkbox" name="Grid" value="C3" /><input type="checkbox" name="Grid" value="D3" /><input type="checkbox" name="Grid" value="E3" />
+          <div>4</div><input type="checkbox" name="Grid" value="A4" /><input type="checkbox" name="Grid" value="B4" /><input type="checkbox" name="Grid" value="C4" /><input type="checkbox" name="Grid" value="D4" /><input type="checkbox" name="Grid" value="E4" />
+          <div>5</div><input type="checkbox" name="Grid" value="A5" /><input type="checkbox" name="Grid" value="B5" /><input type="checkbox" name="Grid" value="C5" /><input type="checkbox" name="Grid" value="D5" /><input type="checkbox" name="Grid" value="E5" />
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Final Confirmation</strong></summary>
+        <p>Before submitting, confirm your understanding of the rules.</p>
+        <label>Do you understand you must follow all rules on and off duty? *</label>
+        <input type="text" name="Rules Agreement" required />
+
+        <label>Do you understand your application can be denied? *</label>
+        <input type="text" name="Denial Agreement" required />
+
+        <label>Do you understand AI usage leads to denial? *</label>
+        <input type="text" name="AI Agreement" required />
+
+        <label>Sign with your Roblox username *</label>
+        <input type="text" name="Roblox Signature" required />
+
+        <label>Anything you would like to tell the reader? <em>(optional)</em></label>
+        <textarea name="Extra Note"></textarea>
+      </details>
+
+      <button type="submit">Submit Application</button>
+    </form>
+
+    <div id="success" style="display:none; text-align:center; color:limegreen; font-weight:bold; margin-top:1rem;">
+      ✅ Your application was submitted successfully!
+    </div>
+  </div>
 </body>
 </html>
