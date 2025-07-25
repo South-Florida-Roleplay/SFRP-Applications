@@ -1,215 +1,165 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SFRP Staff Application</title>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --radius: 12px;
-      --font: 'Segoe UI', sans-serif;
-      --primary: #004e89;
-      --accent: #57c0e8;
-      --light-bg: #f2f2f2;
-      --dark-bg: #1e1e2f;
-      --text-light: #ffffff;
-      --text-dark: #111111;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }* {
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font);
-  background: linear-gradient(270deg, #004e89, #57c0e8);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  color: var(--text-dark);
-}
-
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
-
-.container {
-  max-width: 800px;
-  margin: 2rem auto;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: var(--radius);
-  padding: 2rem;
-  box-shadow: var(--shadow);
-}
-
-h1 {
-  text-align: center;
-  color: var(--primary);
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 1rem;
-  max-width: 120px;
-}
-
-.toggle-dark {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background: #fff;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 50%;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  z-index: 10;
-}
-
-.section {
-  margin: 1rem 0;
-  border: 1px solid #ccc;
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-details {
-  background: #f9f9f9;
-  border-radius: var(--radius);
-}
-
-summary {
-  font-weight: bold;
-  padding: 1rem;
-  background: #e3f2fd;
-  cursor: pointer;
-}
-
-details[open] summary {
-  background: #c8e6c9;
-}
-
-fieldset {
-  border: none;
-  padding: 1rem;
-}
-
-label {
-  display: block;
-  margin: 0.5rem 0 0.2rem;
-  font-weight: 500;
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 0.6rem;
-  border: 1px solid #aaa;
-  border-radius: var(--radius);
-  font-family: var(--font);
-}
-
-textarea {
-  resize: vertical;
-}
-
-.progress {
-  width: 100%;
-  height: 20px;
-  background: #ddd;
-  border-radius: var(--radius);
-  margin: 1rem 0;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  background: red;
-  width: 0%;
-  transition: width 0.5s;
-}
-
-.submit-btn {
-  display: block;
-  margin: 2rem auto 0;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-
-.hidden {
-  display: none;
-}
-
-.admin-key {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  background: #fff;
-  border-radius: 50%;
-  padding: 0.5rem;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  z-index: 10;
-}
-
-.dark-mode {
-  background: var(--dark-bg);
-  color: var(--text-light);
-}
-
-.dark-mode .container {
-  background: rgba(30, 30, 47, 0.95);
-}
-
-.dark-mode .submit-btn {
-  background: var(--accent);
-}
-
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #3b8d99, #1e3c72);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      color: #fff;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    summary {
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      transition: background 0.3s ease;
+    }
+    details[open] summary {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    details {
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    label {
+      display: block;
+      margin: 0.75rem 0 0.25rem;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 1rem;
+    }
+    .toggle-mode {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 12px;
+      border-radius: 10px;
+    }
+    body.dark {
+      background: linear-gradient(-45deg, #000000, #2c2c2c, #434343, #000000);
+      color: #ddd;
+    }
+    body.dark .container {
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
-  <button class="toggle-dark" onclick="toggleDark()">🌙</button>
-  <button class="admin-key" onclick="toggleAdmin()">🔑</button>  <div class="container">
-    <img src="logo.png" alt="SFRP Logo" class="logo" />
+  <div class="toggle-mode" onclick="toggleMode()">🌙</div>
+  <div class="container">
     <h1>SFRP Staff Application</h1>
-    <p>Please fill out the application below honestly and thoroughly. All required sections must be completed to submit.</p><div class="progress">
-  <div class="progress-bar" id="progressBar"></div>
-</div>
+    <form id="applicationForm"><!-- SECTION 1 -->
+  <details open>
+    <summary>Section 1: Basic Information</summary>
+    <label>1. Discord Username</label><input required>
+    <label>2. Discord ID</label><input required>
+    <label>3. Roblox Username</label><input required>
+    <label>4. Roblox ID</label><input required>
+    <label>5. Timezone and Age</label><input required>
+  </details>
 
-<form id="applicationForm">
-  <!-- Sections go here dynamically -->
+  <!-- SECTION 2 -->
+  <details>
+    <summary>Section 2: SFRP Knowledge</summary>
+    <label>6. What does SFRP stand for?</label><input required>
+    <label>7. Which of these is an ERLC command? (Multiple allowed)</label><input required>
+    <label>8. Are you required to have a livery on as staff?</label><input required>
+  </details>
 
-  <button type="submit" class="submit-btn" disabled>Submit Application</button>
+  <!-- SECTION 3 -->
+  <details>
+    <summary>Section 3: About You</summary>
+    <label>9. Name 3 of your best qualities.</label><textarea required></textarea>
+    <label>10. Why do you want to join the team?</label><textarea required></textarea>
+    <label>11. Why should we pick you?</label><textarea required></textarea>
+    <label>12. One weakness and how it may affect the team</label><textarea required></textarea>
+    <label>13. What would you bring to the team?</label><textarea required></textarea>
+  </details>
+
+  <!-- SECTION 4 -->
+  <details>
+    <summary>Section 4: Scenario-Based Questions</summary>
+    <label>14. Special event bring command used, only one person arrived. A roleplayer named all1234556 showed up. What do you do?</label><textarea required></textarea>
+    <label>15. Unofficial mafia causing havoc, no permission logs.</label><textarea required></textarea>
+    <label>16. Someone pinged @everyone but no HR/SHR online.</label><textarea required></textarea>
+    <label><strong>17. Your own high-risk scenario</strong></label><textarea required></textarea>
+  </details>
+
+  <!-- SECTION 5 -->
+  <details>
+    <summary>Section 5: Rule Knowledge</summary>
+    <label>18. What is FRP (Fail Roleplay)?</label><textarea required></textarea>
+    <label>19. What is NLR (New Life Rule)?</label><textarea required></textarea>
+    <label>20. What is VDM & RDM?</label><textarea required></textarea>
+    <label>21. What is Gun Motion and Cuff Rush?</label><textarea required></textarea>
+    <label>22. What is Tool Abuse?</label><textarea required></textarea>
+    <label>23. What is Mod Call Spamming?</label><textarea required></textarea>
+    <label>24. What is NSFW Content?</label><textarea required></textarea>
+    <label>25. What is Profanity?</label><textarea required></textarea>
+  </details>
+
+  <!-- SECTION 6 -->
+  <details>
+    <summary>Section 6: Map Grid Check</summary>
+    <label>26. Check the boxes for where the following are located:</label>
+    <p>City Gas Station, Housing Suburb (1 only), High Rock Entrance, Police Station</p>
+    <textarea placeholder="List grid boxes here..." required></textarea>
+  </details>
+
+  <!-- SECTION 7 -->
+  <details>
+    <summary>Section 7: Final Confirmation</summary>
+    <label>27. Do you understand the rules on/off duty?</label><input required>
+    <label>28. Do you understand your application can be denied?</label><input required>
+    <label>29. Do you understand using AI results in denial?</label><input required>
+    <label>30. Sign with your Roblox Username</label><input required>
+    <label>31. Anything to add? (Optional)</label><textarea></textarea>
+  </details>
+
+  <button type="submit">Submit Application</button>
 </form>
 
-<div id="confirmation" class="hidden">
-  <h2>✅ Submission Successful</h2>
-  <p>Thank you for applying. We'll be in touch soon.</p>
-</div>
-
   </div>  <script>
-    const toggleDark = () => {
-      document.body.classList.toggle('dark-mode');
-    };
-
-    const toggleAdmin = () => {
-      const pass = prompt("Enter Admin Password");
-      if (pass === "3434") alert("Admin tools activated (autofill coming soon)");
-    };
-
-    const form = document.getElementById('applicationForm');
-    const progressBar = document.getElementById('progressBar');
-    const confirmation = document.getElementById('confirmation');
-    const submitBtn = form.querySelector('.submit-btn');
-
-    // Add dynamic fields and logic next
+    function toggleMode() {
+      document.body.classList.toggle('dark');
+    }
   </script></body>
 </html>
