@@ -2,214 +2,227 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SFRP Staff Application</title>
+  <title>SFRP Application</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --radius: 12px;
-      --font: 'Segoe UI', sans-serif;
-      --primary: #004e89;
-      --accent: #57c0e8;
-      --light-bg: #f2f2f2;
-      --dark-bg: #1e1e2f;
-      --text-light: #ffffff;
-      --text-dark: #111111;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }* {
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-
-body {
+      --bg-gradient: linear-gradient(120deg, #1e3c72, #2a5298);
+      --bg-gradient-light: linear-gradient(120deg, #c9d6ff, #e2e2e2);
+      --glass: rgba(255, 255, 255, 0.15);
+      --border: rgba(255, 255, 255, 0.3);
+      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      --text: #fff;
+      --text-dark: #111;
+      --accent: #00bcd4;
+      --error: #ff5252;
+      --valid: #4caf50;
+      --default: #2196f3;
+    }body {
   margin: 0;
-  font-family: var(--font);
-  background: linear-gradient(270deg, #004e89, #57c0e8);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  color: var(--text-dark);
+  font-family: "Segoe UI", sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text);
+  transition: background 1s ease;
 }
 
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+body.light {
+  background: var(--bg-gradient-light);
+  color: var(--text-dark);
 }
 
 .container {
   max-width: 800px;
-  margin: 2rem auto;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: var(--radius);
+  margin: auto;
   padding: 2rem;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
 }
 
-h1 {
+h1, h2 {
   text-align: center;
-  color: var(--primary);
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 1rem;
-  max-width: 120px;
-}
-
-.toggle-dark {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background: #fff;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 50%;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  z-index: 10;
-}
-
-.section {
-  margin: 1rem 0;
-  border: 1px solid #ccc;
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-details {
-  background: #f9f9f9;
-  border-radius: var(--radius);
-}
-
-summary {
-  font-weight: bold;
-  padding: 1rem;
-  background: #e3f2fd;
-  cursor: pointer;
-}
-
-details[open] summary {
-  background: #c8e6c9;
-}
-
-fieldset {
-  border: none;
-  padding: 1rem;
 }
 
 label {
   display: block;
-  margin: 0.5rem 0 0.2rem;
-  font-weight: 500;
+  margin-top: 1rem;
 }
 
-input,
+input[type="text"],
+input[type="number"],
 textarea,
 select {
   width: 100%;
   padding: 0.6rem;
-  border: 1px solid #aaa;
-  border-radius: var(--radius);
-  font-family: var(--font);
+  margin-top: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: inherit;
 }
 
-textarea {
-  resize: vertical;
+.toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  z-index: 999;
 }
 
-.progress {
-  width: 100%;
-  height: 20px;
-  background: #ddd;
-  border-radius: var(--radius);
-  margin: 1rem 0;
-  overflow: hidden;
+.progress-container {
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  z-index: 999;
 }
 
 .progress-bar {
+  width: 100%;
+  height: 20px;
+  border: 2px solid white;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-fill {
   height: 100%;
-  background: red;
   width: 0%;
-  transition: width 0.5s;
-}
-
-.submit-btn {
-  display: block;
-  margin: 2rem auto 0;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  background: var(--primary);
+  background-color: red;
+  text-align: center;
+  line-height: 20px;
   color: white;
-  border: none;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  cursor: pointer;
+  transition: width 0.5s ease, background-color 0.5s ease;
 }
 
-.hidden {
-  display: none;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.grid label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem;
+  border-radius: 6px;
 }
 
 .admin-key {
   position: fixed;
   top: 1rem;
   left: 1rem;
-  background: #fff;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  padding: 0.5rem;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  z-index: 10;
-}
-
-.dark-mode {
-  background: var(--dark-bg);
-  color: var(--text-light);
-}
-
-.dark-mode .container {
-  background: rgba(30, 30, 47, 0.95);
-}
-
-.dark-mode .submit-btn {
   background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+details {
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+summary {
+  font-weight: bold;
+  cursor: pointer;
 }
 
   </style>
 </head>
 <body>
-  <button class="toggle-dark" onclick="toggleDark()">🌙</button>
-  <button class="admin-key" onclick="toggleAdmin()">🔑</button>  <div class="container">
-    <img src="logo.png" alt="SFRP Logo" class="logo" />
-    <h1>SFRP Staff Application</h1>
-    <p>Please fill out the application below honestly and thoroughly. All required sections must be completed to submit.</p><div class="progress">
-  <div class="progress-bar" id="progressBar"></div>
-</div>
+  <div class="toggle" onclick="toggleMode()"><i class="fas fa-adjust"></i></div>
+  <div class="admin-key" onclick="toggleAdmin()"><i class="fas fa-key"></i></div>
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill">0%</div>
+    </div>
+  </div>  <div class="container">
+    <img src="logo.png" alt="SFRP Logo" style="max-width:150px;display:block;margin:auto;">
+    <h1>South Florida RP - Staff Application</h1>
+    <p style="text-align:center">Welcome to the official staff application for SFRP. Please fill out all sections carefully. Your answers should reflect your best effort and honesty.</p><form id="applicationForm">
 
-<form id="applicationForm">
-  <!-- Sections go here dynamically -->
+  <details open>
+    <summary>Section 1: Basic Information</summary>
+    <label>1. Discord Username <input type="text" name="discordUsername" required></label>
+    <label>2. Discord ID <input type="text" name="discordID" required></label>
+    <label>3. Roblox Username <input type="text" name="robloxUsername" required></label>
+    <label>4. Roblox ID <input type="text" name="robloxID" required></label>
+    <label>5. Time Zone & Age <input type="text" name="timezoneAge" required></label>
+  </details>
 
-  <button type="submit" class="submit-btn" disabled>Submit Application</button>
+  <details>
+    <summary>Section 2: SFRP Knowledge</summary>
+    <label>6. What does SFRP stand for? <input type="text" name="sfrpMeaning" required></label>
+    <label>7. Which of these is an ERLC command? (Select all that apply):</label>
+    <label><input type="checkbox" name="command" value=":cmds"> :cmds</label>
+    <label><input type="checkbox" name="command" value=":spawncar"> :spawncar</label>
+    <label><input type="checkbox" name="command" value=":startfire"> :startfire</label>
+    <label><input type="checkbox" name="command" value=":bring all-civillians"> :bring all-civillians</label>
+    <label>8. Are you required to have a livery on as staff? <input type="text" name="liveryRequired" required></label>
+  </details>
+
+  <!-- Continue adding details for other sections: About You, Scenario-Based Questions, Rule Knowledge, Grid Check, Final Confirmation -->
+
+  <button type="submit" style="margin-top:2rem;width:100%;padding:1rem;font-size:1rem;border-radius:8px;background:var(--accent);color:white;border:none;">Submit Application</button>
 </form>
 
-<div id="confirmation" class="hidden">
-  <h2>✅ Submission Successful</h2>
-  <p>Thank you for applying. We'll be in touch soon.</p>
-</div>
-
   </div>  <script>
-    const toggleDark = () => {
-      document.body.classList.toggle('dark-mode');
-    };
-
-    const toggleAdmin = () => {
-      const pass = prompt("Enter Admin Password");
-      if (pass === "3434") alert("Admin tools activated (autofill coming soon)");
-    };
-
     const form = document.getElementById('applicationForm');
-    const progressBar = document.getElementById('progressBar');
-    const confirmation = document.getElementById('confirmation');
-    const submitBtn = form.querySelector('.submit-btn');
+    const progressFill = document.getElementById('progressFill');
 
-    // Add dynamic fields and logic next
+    function toggleMode() {
+      document.body.classList.toggle('light');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const fields = [...formData.entries()].map(([k, v]) => ({ name: k, value: v }));
+
+      const payload = {
+        embeds: [
+          {
+            title: "New Staff Application - SFRP",
+            fields: fields.map(f => ({ name: f.name, value: f.value.toString().substring(0, 1024), inline: false })),
+            color: 3447003,
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+
+      try {
+        await fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        alert("✅ Application submitted successfully!");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert("❌ Submission failed. Please check your connection or try again later.");
+        console.error(err);
+      }
+    });
+
+    function toggleAdmin() {
+      const pass = prompt("Enter admin password");
+      if (pass === "3434") alert("Admin Mode Enabled - (Autofill/Admin panel coming soon)");
+    }
   </script></body>
 </html>
