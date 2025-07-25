@@ -2,227 +2,271 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SFRP Application</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>SFRP Staff Application</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    :root {
-      --bg-gradient: linear-gradient(120deg, #1e3c72, #2a5298);
-      --bg-gradient-light: linear-gradient(120deg, #c9d6ff, #e2e2e2);
-      --glass: rgba(255, 255, 255, 0.15);
-      --border: rgba(255, 255, 255, 0.3);
-      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      --text: #fff;
-      --text-dark: #111;
-      --accent: #00bcd4;
-      --error: #ff5252;
-      --valid: #4caf50;
-      --default: #2196f3;
-    }body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: var(--bg-gradient);
-  color: var(--text);
-  transition: background 1s ease;
-}
-
-body.light {
-  background: var(--bg-gradient-light);
-  color: var(--text-dark);
-}
-
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 2rem;
-  background: var(--glass);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(10px);
-}
-
-h1, h2 {
-  text-align: center;
-}
-
-label {
-  display: block;
-  margin-top: 1rem;
-}
-
-input[type="text"],
-input[type="number"],
-textarea,
-select {
-  width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.4rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: inherit;
-}
-
-.toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  cursor: pointer;
-  z-index: 999;
-}
-
-.progress-container {
-  position: sticky;
-  top: 0;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 0.5rem;
-  z-index: 999;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 20px;
-  border: 2px solid white;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background-color: red;
-  text-align: center;
-  line-height: 20px;
-  color: white;
-  transition: width 0.5s ease, background-color 0.5s ease;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.grid label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.1);
-  padding: 0.5rem;
-  border-radius: 6px;
-}
-
-.admin-key {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-details {
-  margin-top: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-summary {
-  font-weight: bold;
-  cursor: pointer;
-}
-
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c1c1c);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      transition: background 0.5s, color 0.5s;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    h1, p {
+      text-align: center;
+    }
+    .logo {
+      display: block;
+      margin: 0 auto 10px;
+      max-width: 150px;
+    }
+    details {
+      margin: 10px 0;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 10px;
+      transition: 0.3s;
+    }
+    details[open] summary {
+      color: #4caf50;
+    }
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+      color: #2196f3;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      outline: none;
+      margin-top: 4px;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #2196f3;
+    }
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+      margin-top: 10px;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .checkbox-group input {
+      display: none;
+    }
+    .checkbox-group input:checked + label {
+      background-color: #2196f3;
+      color: white;
+    }
+    .progress-bar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+    }
+    .progress-fill {
+      height: 20px;
+      border-radius: 12px;
+      background: red;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+      transition: width 0.3s, background 0.3s;
+    }
+    .submit-btn {
+      background: #4caf50;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 20px;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .submit-btn:enabled {
+      opacity: 1;
+    }
+    .dark-mode {
+      background: linear-gradient(-45deg, #1c1c1c, #2c3e50, #34495e, #2c3e50);
+    }
+    .key-icon {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px;
+      border-radius: 50%;
+      z-index: 1001;
+    }
+    .admin-panel {
+      display: none;
+      position: fixed;
+      top: 50px;
+      right: 20px;
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 12px;
+      z-index: 1002;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    .admin-panel button {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: #2196f3;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <div class="toggle" onclick="toggleMode()"><i class="fas fa-adjust"></i></div>
-  <div class="admin-key" onclick="toggleAdmin()"><i class="fas fa-key"></i></div>
-  <div class="progress-container">
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill">0%</div>
+  <div class="key-icon" onclick="toggleAdmin()">🔑</div>
+  <div class="admin-panel" id="adminPanel">
+    <input type="password" id="adminPass" placeholder="Enter password...">
+    <button onclick="checkAdmin()">Enter</button>
+    <div id="adminActions" style="display:none">
+      <button onclick="autofillForm()">Autofill Test Data</button>
+      <button disabled>Admin Panel (Coming Soon)</button>
     </div>
-  </div>  <div class="container">
-    <img src="logo.png" alt="SFRP Logo" style="max-width:150px;display:block;margin:auto;">
+  </div>
+  <div class="progress-bar">
+    <div id="progressFill" class="progress-fill" style="width: 0%">0%</div>
+  </div>
+  <div class="container">
+    <img src="logo.png" class="logo" alt="SFRP Logo">
     <h1>South Florida RP - Staff Application</h1>
-    <p style="text-align:center">Welcome to the official staff application for SFRP. Please fill out all sections carefully. Your answers should reflect your best effort and honesty.</p><form id="applicationForm">
-
+    <p>Please fill out the application carefully. All sections are required unless marked optional.</p><!-- Application form begins -->
+<form id="applicationForm">
   <details open>
-    <summary>Section 1: Basic Information</summary>
-    <label>1. Discord Username <input type="text" name="discordUsername" required></label>
-    <label>2. Discord ID <input type="text" name="discordID" required></label>
-    <label>3. Roblox Username <input type="text" name="robloxUsername" required></label>
-    <label>4. Roblox ID <input type="text" name="robloxID" required></label>
-    <label>5. Time Zone & Age <input type="text" name="timezoneAge" required></label>
+    <summary>Basic Information</summary>
+    <label>1. Discord Username<input required name="q1" type="text"></label>
+    <label>2. Discord ID<input required name="q2" type="text"></label>
+    <label>3. Roblox Username<input required name="q3" type="text"></label>
+    <label>4. Roblox ID<input required name="q4" type="text"></label>
+    <label>5. Timezone and Age<input required name="q5" type="text"></label>
   </details>
 
   <details>
-    <summary>Section 2: SFRP Knowledge</summary>
-    <label>6. What does SFRP stand for? <input type="text" name="sfrpMeaning" required></label>
-    <label>7. Which of these is an ERLC command? (Select all that apply):</label>
-    <label><input type="checkbox" name="command" value=":cmds"> :cmds</label>
-    <label><input type="checkbox" name="command" value=":spawncar"> :spawncar</label>
-    <label><input type="checkbox" name="command" value=":startfire"> :startfire</label>
-    <label><input type="checkbox" name="command" value=":bring all-civillians"> :bring all-civillians</label>
-    <label>8. Are you required to have a livery on as staff? <input type="text" name="liveryRequired" required></label>
+    <summary>SFRP Knowledge</summary>
+    <label>6. What does SFRP stand for?<input required name="q6" type="text"></label>
+    <label>7. Which of these is an ERLC command? (Select all that apply)</label>
+    <label><input type="checkbox" name="q7" value=":cmds"> :cmds</label>
+    <label><input type="checkbox" name="q7" value=":spawncar"> :spawncar</label>
+    <label><input type="checkbox" name="q7" value=":startfire"> :startfire</label>
+    <label><input type="checkbox" name="q7" value=":bring all-civillians"> :bring all-civillians</label>
+    <label>8. Are you required to have a livery on as staff?
+      <select required name="q8">
+        <option value="">--Select--</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+    </label>
   </details>
 
-  <!-- Continue adding details for other sections: About You, Scenario-Based Questions, Rule Knowledge, Grid Check, Final Confirmation -->
+  <!-- Remaining Sections will be continued here -->
 
-  <button type="submit" style="margin-top:2rem;width:100%;padding:1rem;font-size:1rem;border-radius:8px;background:var(--accent);color:white;border:none;">Submit Application</button>
+  <button class="submit-btn" id="submitBtn" type="submit" disabled>Submit Application</button>
 </form>
 
   </div>  <script>
-    const form = document.getElementById('applicationForm');
-    const progressFill = document.getElementById('progressFill');
-
-    function toggleMode() {
-      document.body.classList.toggle('light');
+    const toggleAdmin = () => {
+      document.getElementById("adminPanel").style.display = 'block';
     }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-      const fields = [...formData.entries()].map(([k, v]) => ({ name: k, value: v }));
-
-      const payload = {
-        embeds: [
-          {
-            title: "New Staff Application - SFRP",
-            fields: fields.map(f => ({ name: f.name, value: f.value.toString().substring(0, 1024), inline: false })),
-            color: 3447003,
-            timestamp: new Date().toISOString()
-          }
-        ]
-      };
-
-      try {
-        await fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        alert("✅ Application submitted successfully!");
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch (err) {
-        alert("❌ Submission failed. Please check your connection or try again later.");
-        console.error(err);
+    const checkAdmin = () => {
+      if (document.getElementById("adminPass").value === "3434") {
+        document.getElementById("adminActions").style.display = 'block';
       }
-    });
-
-    function toggleAdmin() {
-      const pass = prompt("Enter admin password");
-      if (pass === "3434") alert("Admin Mode Enabled - (Autofill/Admin panel coming soon)");
     }
+    const autofillForm = () => {
+      const form = document.forms["applicationForm"];
+      for (let i = 0; i < form.elements.length; i++) {
+        const field = form.elements[i];
+        if (field.type === 'text') field.value = 'Test ' + i;
+        if (field.type === 'select-one') field.selectedIndex = 1;
+        if (field.type === 'checkbox') field.checked = true;
+      }
+      updateProgress();
+    }
+    const updateProgress = () => {
+      const total = document.querySelectorAll("input[required], select[required], textarea[required]").length;
+      let complete = 0;
+      document.querySelectorAll("input[required], select[required], textarea[required]").forEach(input => {
+        if ((input.type === 'checkbox' && input.checked) || (input.type !== 'checkbox' && input.value.trim() !== '')) complete++;
+      });
+      const percent = Math.round((complete / total) * 100);
+      const bar = document.getElementById("progressFill");
+      bar.style.width = percent + '%';
+      bar.textContent = percent + '%';
+      bar.style.background = percent < 40 ? 'red' : percent < 80 ? 'orange' : 'green';
+      document.getElementById("submitBtn").disabled = percent < 100;
+    }
+    document.querySelectorAll("input, select, textarea").forEach(el => {
+      el.addEventListener('input', updateProgress);
+      el.addEventListener('change', updateProgress);
+    });
+    document.getElementById("applicationForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const fields = {};
+      for (const [key, value] of data.entries()) {
+        if (!fields[key]) fields[key] = value;
+        else fields[key] += ", " + value;
+      }
+      fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          embeds: [{
+            title: "New SFRP Application",
+            color: 3447003,
+            fields: Object.entries(fields).map(([name, value]) => ({ name, value: value || "None", inline: false }))
+          }]
+        })
+      }).then(() => {
+        alert("✅ Application submitted successfully!");
+        window.scrollTo(0, 0);
+      }).catch(() => alert("❌ Submission failed. Please try again later."));
+    });
   </script></body>
 </html>
