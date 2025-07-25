@@ -1,246 +1,285 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SFRP Staff Application</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #2a5298);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
-      color: #f0f0f0;
+      transition: background 3s ease;
+      background: linear-gradient(-45deg, #3b82f6, #10b981, #f59e0b, #ef4444);
+      background-size: 600% 600%;
+      animation: gradientShift 12s ease infinite;
+      color: #111;
     }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
-    header {
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    h1, h2 {
       text-align: center;
-      padding: 20px;
     }
-    header img {
-      width: 80px;
-      height: auto;
+    .section {
+      margin: 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
-    h1 {
-      font-size: 2rem;
-      margin: 10px 0;
-    }
-    form {
-      background: rgba(0,0,0,0.7);
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    section {
-      margin-bottom: 40px;
-    }
-    .question {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
+    .section-header {
+      background: #f3f4f6;
+      padding: 10px;
+      cursor: pointer;
       font-weight: bold;
-      margin-bottom: 5px;
     }
-    input, textarea, select {
+    .section-content {
+      padding: 15px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .section-content.active {
+      display: flex;
+    }
+    input, select, textarea {
       width: 100%;
       padding: 10px;
-      margin-bottom: 10px;
-      border: none;
+      margin-top: 5px;
       border-radius: 6px;
-      font-size: 1rem;
+      border: 1px solid #ccc;
     }
-    button {
+    .btn {
       padding: 10px 20px;
-      background-color: #007bff;
+      background: #2563eb;
+      color: #fff;
       border: none;
       border-radius: 6px;
-      color: white;
-      font-size: 1rem;
       cursor: pointer;
     }
+    .btn:hover {
+      background: #1d4ed8;
+    }
     #progressBar {
-      width: 100%;
-      height: 20px;
-      background: #555;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 6px;
+      background: #10b981;
+      transition: width 0.3s ease;
+      z-index: 1000;
     }
-    #progressFill {
-      height: 100%;
-      width: 0%;
-      background: limegreen;
-      transition: width 0.3s;
+    .dark-mode {
+      background: #111827;
+      color: #f3f4f6;
     }
-    .admin-panel {
+    .dark-mode .container {
+      background: #1f2937;
+    }
+    #adminKeyIcon {
+      position: fixed;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 2000;
+    }
+    #adminPanel {
       display: none;
-      margin-top: 20px;
-      background: #333;
+      position: fixed;
+      top: 50px;
+      right: 10px;
+      background: white;
       padding: 10px;
       border-radius: 10px;
-    }
-    .dark {
-      background: #111;
-      color: #eee;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 2000;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="SFRP Logo">
+  <div id="progressBar"></div>
+  <div id="adminKeyIcon">🔑</div>
+  <div id="adminPanel">
+    <input id="adminPassword" type="password" placeholder="Enter Admin Password">
+    <button onclick="enableAdmin()">Unlock</button>
+    <div id="adminActions" style="display:none">
+      <button onclick="autofillForm()">Autofill Form</button>
+    </div>
+  </div>
+  <div class="container">
+    <img src="logo.png" alt="SFRP Logo" style="max-width: 100px; display:block; margin: auto;">
     <h1>SFRP Staff Application</h1>
-  </header>  <form id="applicationForm">
-    <section id="basicInfo">
-      <h2>Basic Information</h2>
-      <div class="question">
-        <label>Discord Username</label>
-        <input type="text" required>
-      </div>
-      <div class="question">
-        <label>Discord ID</label>
-        <input type="text" required>
-      </div>
-      <div class="question">
-        <label>Roblox Username</label>
-        <input type="text" required>
-      </div>
-      <div class="question">
-        <label>Roblox ID</label>
-        <input type="text" required>
-      </div>
-      <div class="question">
-        <label>Timezone & Age</label>
-        <input type="text" required>
-      </div>
-    </section><section id="sfrpKnowledge">
-  <h2>SFRP Knowledge</h2>
-  <div class="question">
-    <label>What does SFRP stand for?</label>
-    <input type="text" required>
-  </div>
-  <div class="question">
-    <label>Which of these is an ERLC command?</label>
-    <select required>
-      <option>:cmds</option>
-      <option>:spawncar</option>
-      <option>:startfire</option>
-      <option>:bring all-civilians</option>
-    </select>
-  </div>
-  <div class="question">
-    <label>Is livery required as staff?</label>
-    <select required>
-      <option>Yes</option>
-      <option>No</option>
-    </select>
-  </div>
-</section>
-
-<section id="aboutYou">
-  <h2>About You</h2>
-  <div class="question">
-    <label>Best 3 qualities</label>
-    <textarea required></textarea>
-  </div>
-  <div class="question">
-    <label>Why join?</label>
-    <textarea required></textarea>
-  </div>
-  <div class="question">
-    <label>Why should we pick you?</label>
-    <textarea required></textarea>
-  </div>
-  <div class="question">
-    <label>Weakness & team impact</label>
-    <textarea required></textarea>
-  </div>
-  <div class="question">
-    <label>What do you bring to the team?</label>
-    <textarea required></textarea>
-  </div>
-</section>
-
-<section id="finalConfirm">
-  <h2>Final Confirmation</h2>
-  <div class="question">
-    <label>Do you understand rules must be followed on/off duty?</label>
-    <select required>
-      <option>Yes</option>
-      <option>No</option>
-    </select>
-  </div>
-  <div class="question">
-    <label>Do you understand your application may be denied?</label>
-    <select required>
-      <option>Yes</option>
-      <option>No</option>
-    </select>
-  </div>
-  <div class="question">
-    <label>Do you confirm no AI was used?</label>
-    <select required>
-      <option>Yes</option>
-      <option>No</option>
-    </select>
-  </div>
-  <div class="question">
-    <label>Sign (Roblox Username)</label>
-    <input type="text" required>
-  </div>
-  <div class="question">
-    <label>Anything to ask/tell?</label>
-    <textarea></textarea>
-  </div>
-</section>
-
-<div id="progressBar">
-  <div id="progressFill"></div>
-</div>
-
-<button type="submit">Submit</button>
-
-<div class="admin-panel" id="adminPanel">
-  <p><strong>Admin Tools</strong></p>
-  <button type="button" onclick="alert('Autofill logic here')">Autofill</button>
-</div>
-
-<br><br>
-<label>Admin Mode Password</label>
-<input type="password" id="adminPass">
-<button type="button" onclick="toggleAdmin()">Unlock Admin</button>
-
-  </form>  <script>
-    const form = document.getElementById("applicationForm");
-    const progressFill = document.getElementById("progressFill");
-    const inputs = form.querySelectorAll("input, textarea, select");
+    <div id="application"></div>
+    <button class="btn" id="submitBtn" disabled>Submit Application</button>
+    <div id="confirmation"></div>
+    <div id="error" style="color:red;"></div>
+    <div style="margin-top:20px; text-align:center">
+      <button class="btn" onclick="toggleTheme()">Toggle Dark/Light Mode</button>
+    </div>
+  </div>  <script>
+    const app = document.getElementById("application");
+    const progressBar = document.getElementById("progressBar");
+    const submitBtn = document.getElementById("submitBtn");
+    const confirmation = document.getElementById("confirmation");
+    const errorBox = document.getElementById("error");
+    const adminKeyIcon = document.getElementById("adminKeyIcon");
     const adminPanel = document.getElementById("adminPanel");
-    const adminPass = document.getElementById("adminPass");
+    const adminPassword = document.getElementById("adminPassword");
+    const adminActions = document.getElementById("adminActions");
 
-    function updateProgress() {
-      const answered = Array.from(inputs).filter(i => i.value.trim() !== "").length;
-      const total = inputs.length;
-      const percent = Math.round((answered / total) * 100);
-      progressFill.style.width = percent + "%";
-    }
-    inputs.forEach(input => input.addEventListener("input", updateProgress));
+    const questions = [
+      "Discord Username",
+      "Discord ID",
+      "Roblox Username",
+      "Roblox ID",
+      "Time Zone and Age",
+      "What does SFRP stand for?",
+      "Which of these is an ERLC command?",
+      "Is livery required as staff?",
+      "Name 3 best qualities",
+      "Why join the team?",
+      "Why should we pick you?",
+      "One weakness and how it affects the team",
+      "What would you bring to the team?",
+      "Special event, 1 attendee scenario",
+      "Mafia causing havoc, no permissions",
+      "@everyone used, no HR online",
+      "Create high-risk scenario",
+      "What is FRP?",
+      "What is NLR?",
+      "What is VDM & RDM?",
+      "What is Gun Motion and Cuff Rush?",
+      "What is Tool Abuse?",
+      "What is Mod Call Spamming?",
+      "What is NSFW Content?",
+      "What is Profanity?",
+      "Grid Check (City Gas Station, Springfield FD, Main Highrock Entrance, Sheriffs Office)",
+      "Do you understand rules?",
+      "Do you understand possible denial?",
+      "AI usage = denial, understand?",
+      "Sign Roblox Username",
+      "Any questions or message?"
+    ];
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert("Form submitted! Sent to Discord webhook (not implemented in this preview). Thank you.");
+    questions.forEach((q, i) => {
+      const section = document.createElement("div");
+      section.className = "section";
+
+      const header = document.createElement("div");
+      header.className = "section-header";
+      header.textContent = `Question ${i + 1}`;
+      header.addEventListener("click", () => {
+        content.classList.toggle("active");
+      });
+
+      const content = document.createElement("div");
+      content.className = "section-content";
+      const label = document.createElement("label");
+      label.textContent = q;
+      const input = document.createElement("input");
+      input.required = true;
+      input.name = `q${i}`;
+
+      // localStorage restore
+      const saved = localStorage.getItem(`q${i}`);
+      if (saved) input.value = saved;
+
+      input.addEventListener("input", () => {
+        localStorage.setItem(`q${i}`, input.value);
+        updateProgress();
+        autoExpandNext();
+      });
+
+      content.appendChild(label);
+      content.appendChild(input);
+
+      section.appendChild(header);
+      section.appendChild(content);
+
+      app.appendChild(section);
     });
 
-    function toggleAdmin() {
-      if (adminPass.value === "sfrpadmin") {
-        adminPanel.style.display = "block";
-      } else {
-        alert("Incorrect password.");
+    function updateProgress() {
+      const inputs = document.querySelectorAll("input");
+      const filled = Array.from(inputs).filter(i => i.value.trim() !== "").length;
+      const percent = (filled / inputs.length) * 100;
+      progressBar.style.width = percent + "%";
+      submitBtn.disabled = filled < inputs.length - 1;
+    }
+
+    function autoExpandNext() {
+      document.querySelectorAll(".section").forEach(section => {
+        const inputs = section.querySelectorAll("input");
+        const allFilled = Array.from(inputs).every(i => i.value.trim() !== "");
+        if (allFilled) {
+          const next = section.nextElementSibling;
+          if (next && next.querySelector(".section-content")) {
+            next.querySelector(".section-content").classList.add("active");
+          }
+        }
+      });
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    adminKeyIcon.addEventListener("click", () => {
+      adminPanel.style.display = adminPanel.style.display === "block" ? "none" : "block";
+    });
+
+    function enableAdmin() {
+      if (adminPassword.value === "admin123") {
+        adminActions.style.display = "block";
       }
     }
+
+    function autofillForm() {
+      document.querySelectorAll("input").forEach(input => {
+        input.value = Math.random().toString(36).substring(2, 10);
+        localStorage.setItem(input.name, input.value);
+      });
+      updateProgress();
+    }
+
+    submitBtn.addEventListener("click", () => {
+      errorBox.textContent = "";
+      confirmation.textContent = "Submitting...";
+
+      const answers = {};
+      document.querySelectorAll("input").forEach(input => {
+        answers[input.name] = input.value;
+      });
+
+      fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: JSON.stringify(answers, null, 2) })
+      }).then(res => {
+        if (res.ok) {
+          confirmation.textContent = "Application sent successfully!";
+          localStorage.clear();
+        } else {
+          throw new Error("Webhook error");
+        }
+      }).catch(err => {
+        confirmation.textContent = "";
+        errorBox.textContent = "Error submitting application: " + err.message;
+      });
+    });
   </script></body>
 </html>
