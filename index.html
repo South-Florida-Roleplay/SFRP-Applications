@@ -4,30 +4,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SFRP Staff Application</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="SFRP Logo" class="logo" />
+    <img src="logo.png" alt="SFRP Logo" class="logo">
     <h1>South Florida RP Staff Application</h1>
-    <button id="toggleTheme">🌓</button>
-    <button id="adminKey">🔑</button>
-  </header>  <div id="progressBar"><div id="progressFill">0%</div></div>  <main>
-    <form id="applicationForm"></form><section id="adminPanel" class="hidden">
+    <div id="toggleTheme">🌓</div>
+    <div id="adminKey">🔑</div>
+  </header>  <main>
+    <div id="progressBar"><div id="progressFill"></div></div>
+    <form id="applicationForm"></form>
+    <button id="submitBtn" disabled>Submit Application</button>
+    <div id="confirmation" class="hidden">✅ Application Submitted Successfully!</div>
+    <div id="error" class="hidden">❌ Submission failed. Please try again.</div><div id="adminPanel" class="hidden">
   <input type="password" id="adminPassword" placeholder="Enter Admin Password" />
-  <button id="unlockAdmin">Unlock</button>
   <div id="adminActions" class="hidden">
-    <button id="autofillForm">Autofill Form</button>
-    <button disabled>Admin Panel (Coming Soon)</button>
+    <button id="autofillForm">Autofill Test Answers</button>
+    <button onclick="alert('Admin panel coming soon!')">Access Admin Panel</button>
   </div>
-</section>
+</div>
 
-<div class="hidden message" id="confirmation">✅ Application submitted successfully!</div>
-<div class="hidden message" id="error">❌ There was an error submitting the form. Try again.</div>
-
-<button type="button" id="submitBtn" disabled>Submit Application</button>
-
-  </main>  <footer>
-    <p>&copy; 2025 South Florida RP</p>
-  </footer>  <script src="script.js"></script></body>
+  </main>  <section id="mapGrid" class="hidden">
+    <h2>Map Grid Reference</h2>
+    <img src="map.png" alt="Map Reference" class="map-image" />
+  </section>  <script src="script.js"></script></body>
 </html>
