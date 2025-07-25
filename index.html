@@ -7,160 +7,247 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(270deg, #0077ff, #00c9a7, #ff5f6d, #ffc371);
-      background-size: 800% 800%;
-      animation: gradientShift 15s ease infinite;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #000);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
       color: #fff;
-    }@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+    }@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+}
+
+img.logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin: 0;
 }
 
 .container {
   max-width: 800px;
   margin: auto;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 8px;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 2rem;
+section {
+  margin-bottom: 20px;
 }
 
-details {
-  margin-bottom: 1.5rem;
-  background: #111;
-  padding: 1rem;
-  border-radius: 6px;
-}
-
-summary {
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: .5rem;
-}
-
-label {
+label, p {
   display: block;
-  margin: 1rem 0 .25rem;
+  margin: 10px 0 5px;
 }
 
 input, textarea, select {
   width: 100%;
-  padding: 0.5rem;
-  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 10px;
   border: none;
-  margin-bottom: 1rem;
+  border-radius: 4px;
 }
 
 button {
-  padding: 0.75rem 2rem;
-  background: #00c9a7;
-  color: #000;
+  background: #2a5298;
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
+  color: #fff;
   cursor: pointer;
-  font-weight: bold;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #1e3c72;
 }
 
 .progress-container {
-  width: 100%;
-  background: #333;
+  background: #444;
   border-radius: 20px;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
 }
 
 .progress-bar {
   height: 20px;
+  background: limegreen;
   width: 0%;
-  background: #00c9a7;
   transition: width 0.3s ease;
 }
 
-.mode-toggle {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background: #fff;
-  color: #000;
-  padding: 5px 10px;
+details {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 10px;
   border-radius: 5px;
+}
+
+summary {
   cursor: pointer;
-  font-size: 14px;
+  font-weight: bold;
+}
+
+.admin-panel {
+  margin-top: 20px;
+  background: #222;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
 }
 
   </style>
 </head>
 <body>
-  <div class="mode-toggle" onclick="toggleMode()">Toggle Mode</div>
-  <div class="container">
+  <header>
+    <img src="logo.png" alt="SFRP Logo" class="logo" />
     <h1>SFRP Staff Application</h1>
-    <div class="progress-container"><div class="progress-bar" id="progress"></div></div>
-    <form id="applicationForm">
-      <!-- (form content remains the same) -->
-      <!-- ...omitted for brevity, use previously shown form fields here -->
-      <button type="submit">Submit</button>
-    </form>
+  </header>
+  <div class="container">
+    <div class="progress-container">
+      <div class="progress-bar" id="progressFill"></div>
+    </div>
+    <form id="applicationForm"></form>
+    <button id="submitBtn">Submit</button>
+    <div id="confirmation" class="hidden">✅ Submitted successfully!</div>
+    <div id="error" class="hidden">❌ Something went wrong.</div>
+    <div class="admin-panel">
+      <label for="adminPassword">Admin Test Mode</label>
+      <input type="password" id="adminPassword" placeholder="Enter admin key...">
+      <button id="unlockAdmin">Unlock</button>
+      <div id="adminActions" class="hidden">
+        <button id="autofillForm">Autofill</button>
+      </div>
+    </div>
   </div>  <script>
-    function toggleMode() {
-      document.body.classList.toggle('light');
-    }
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A";
 
-    const form = document.getElementById('applicationForm');
-    const progress = document.getElementById('progress');
-    const inputs = form.querySelectorAll('input, textarea, select');
+    const questions = [
+      {
+        title: "Basic Information",
+        inputs: [
+          { label: "Discord Username", id: "discordUsername" },
+          { label: "Discord ID", id: "discordID" },
+          { label: "Roblox Username", id: "robloxUsername" },
+          { label: "Roblox ID", id: "robloxID" },
+          { label: "Time Zone and Age", id: "timezoneAge" }
+        ]
+      },
+      {
+        title: "About You",
+        inputs: [
+          { label: "Your Qualities", id: "qualities" },
+          { label: "Why Join?", id: "whyJoin" },
+          { label: "Why You?", id: "whyYou" },
+          { label: "Weakness", id: "weakness" },
+          { label: "What You'll Bring", id: "bring" }
+        ]
+      },
+      {
+        title: "Final Confirmation",
+        inputs: [
+          { label: "Do you understand rules?", id: "rulesUnderstand" },
+          { label: "Sign with Roblox username", id: "signature" }
+        ]
+      }
+    ];
+
+    const form = document.getElementById("applicationForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const progressFill = document.getElementById("progressFill");
+    const confirmation = document.getElementById("confirmation");
+    const errorBox = document.getElementById("error");
+    const unlockAdmin = document.getElementById("unlockAdmin");
+    const adminPassword = document.getElementById("adminPassword");
+    const adminActions = document.getElementById("adminActions");
+    const autofillForm = document.getElementById("autofillForm");
+
+    function renderForm() {
+      questions.forEach((section, index) => {
+        const details = document.createElement("details");
+        if (index === 0) details.setAttribute("open", true);
+        const summary = document.createElement("summary");
+        summary.textContent = section.title;
+        details.appendChild(summary);
+
+        section.inputs.forEach(input => {
+          const label = document.createElement("label");
+          label.textContent = input.label;
+          label.setAttribute("for", input.id);
+          const textarea = document.createElement("textarea");
+          textarea.id = input.id;
+          textarea.required = true;
+          details.appendChild(label);
+          details.appendChild(textarea);
+        });
+
+        form.appendChild(details);
+      });
+    }
 
     function updateProgress() {
-      let filled = 0;
-      let total = 0;
-      inputs.forEach(i => {
-        if (i.type !== 'checkbox') total++;
-        if (i.type !== 'checkbox' && i.value.trim() !== '') filled++;
-      });
-      const percent = Math.floor((filled / total) * 100);
-      progress.style.width = percent + '%';
+      const filled = [...form.querySelectorAll("textarea")].filter(i => i.value.trim() !== "").length;
+      const total = form.querySelectorAll("textarea").length;
+      const percent = Math.round((filled / total) * 100);
+      progressFill.style.width = percent + "%";
     }
 
-    inputs.forEach(input => input.addEventListener('input', updateProgress));
+    function getFormData() {
+      return [...form.querySelectorAll("textarea")]
+        .map(input => `**${input.previousSibling.textContent.trim()}**: ${input.value}`)
+        .join("\n");
+    }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = {};
-      inputs.forEach(i => {
-        if (i.type === 'checkbox') {
-          if (!data[i.name]) data[i.name] = [];
-          if (i.checked) data[i.name].push(i.value);
-        } else {
-          data[i.previousElementSibling?.innerText || i.name] = i.value;
-        }
+    function submitForm() {
+      const content = getFormData();
+      fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ content })
+      })
+      .then(res => {
+        if (res.ok) {
+          confirmation.classList.remove("hidden");
+          errorBox.classList.add("hidden");
+          form.reset();
+          updateProgress();
+        } else throw new Error("Failed");
+      })
+      .catch(() => {
+        confirmation.classList.add("hidden");
+        errorBox.classList.remove("hidden");
       });
+    }
 
-      await fetch('https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content: '**New Staff Application**',
-          embeds: [{
-            title: 'Application Form',
-            color: 5763719,
-            fields: Object.entries(data).map(([name, value]) => ({
-              name,
-              value: Array.isArray(value) ? value.join(', ') : value || 'None',
-              inline: false
-            }))
-          }]
-        })
-      });
-      alert('Submitted!');
-      form.reset();
+    function unlockAdminPanel() {
+      if (adminPassword.value === "sfrpadmin") {
+        adminActions.classList.remove("hidden");
+      }
+    }
+
+    function autofillAnswers() {
+      form.querySelectorAll("textarea").forEach(t => (t.value = "Sample Answer"));
       updateProgress();
-    });
+    }
 
-    updateProgress();
+    form.addEventListener("input", updateProgress);
+    submitBtn.addEventListener("click", e => {
+      e.preventDefault();
+      submitForm();
+    });
+    unlockAdmin.addEventListener("click", unlockAdminPanel);
+    autofillForm.addEventListener("click", autofillAnswers);
+
+    renderForm();
   </script></body>
 </html>
