@@ -1,64 +1,50 @@
 /* style.css */
 
-:root { --primary: #1e90ff; --background-light: #f9f9f9; --background-dark: #121212; --text-light: #000; --text-dark: #fff; --accent: #ff9800; --complete: #4caf50; --error: #e53935; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: var(--background-light); color: var(--text-light); transition: background 0.3s, color 0.3s; }
+:root { --primary-color: #4c8bf5; --accent-color: #7c3aed; --bg-color: #0f172a; --text-color: #f8fafc; --light-bg: #f8fafc; --light-text: #0f172a; --transition-time: 0.3s; }
 
-body.dark { background: var(--background-dark); color: var(--text-dark); }
+body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: linear-gradient(-45deg, #1e3a8a, #2563eb, #1e40af, #312e81); background-size: 400% 400%; animation: gradientShift 12s ease infinite; color: var(--text-color); transition: background-color var(--transition-time); min-height: 100vh; }
 
-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: linear-gradient(90deg, var(--primary), var(--accent)); color: white; position: sticky; top: 0; z-index: 1000; }
+@keyframes gradientShift { 0% {background-position: 0% 50%;} 25% {background-position: 50% 50%;} 50% {background-position: 100% 50%;} 75% {background-position: 50% 0%;} 100% {background-position: 0% 50%;} }
 
-.logo { width: 50px; height: auto; margin-right: 1rem; }
+.dark { --bg-color: #0f172a; --text-color: #f8fafc; }
 
-h1 { flex-grow: 1; font-size: 1.5rem; }
+.light { --bg-color: #f8fafc; --text-color: #0f172a; }
 
-#toggleTheme, #adminKey { background: none; border: none; font-size: 1.25rem; cursor: pointer; color: white; }
+.container { max-width: 900px; margin: auto; padding: 20px; background: rgba(15, 23, 42, 0.9); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); margin-top: 40px; }
 
-main { padding: 1rem; max-width: 800px; margin: 0 auto; }
+h1, h2 { text-align: center; }
 
-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.details-section { background: rgba(255, 255, 255, 0.05); padding: 16px; border-radius: 10px; margin-bottom: 20px; }
 
-details { background: rgba(0,0,0,0.05); padding: 1rem; border-radius: 8px; }
+details summary { cursor: pointer; font-weight: 600; padding: 8px; background-color: rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 10px; }
 
-body.dark details { background: rgba(255,255,255,0.05); }
+input, textarea, select { width: 100%; padding: 10px; margin-top: 6px; margin-bottom: 16px; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: var(--text-color); }
 
-summary { font-weight: 600; cursor: pointer; font-size: 1.1rem; }
+input[type="checkbox"], input[type="radio"] { width: auto; margin-right: 10px; }
 
-label { display: block; margin: 0.5rem 0 0.2rem; }
+button { padding: 12px 24px; border: none; border-radius: 8px; background-color: var(--primary-color); color: #fff; font-weight: 600; cursor: pointer; transition: background-color 0.2s; margin: 6px 4px; }
 
-input[type="text"], input[type="number"], input[type="password"], textarea, select { width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; box-sizing: border-box; }
+button:hover { background-color: var(--accent-color); }
 
-.grid-table { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.25rem; margin-top: 0.5rem; }
+#progressContainer { background: rgba(255,255,255,0.2); border-radius: 999px; height: 14px; margin: 20px 0; }
 
-.grid-table div { text-align: center; font-weight: 600; }
+#progressFill { height: 100%; width: 0%; background-color: var(--primary-color); border-radius: 999px; transition: width 0.3s ease, background-color 0.3s ease; }
 
-.grid-table input[type="checkbox"] { transform: scale(1.2); }
+.section-complete summary { background-color: rgba(34,197,94,0.2); color: #22c55e; }
 
-#progressBar { width: 100%; background: #ddd; height: 20px; margin: 0; }
+#adminKey { position: fixed; top: 12px; right: 12px; font-size: 24px; cursor: pointer; color: var(--text-color); z-index: 99; }
 
-#progressFill { height: 100%; width: 0%; background: var(--primary); color: white; text-align: center; font-size: 0.85rem; transition: width 0.4s ease; }
+#adminPanel { display: none; background: rgba(255,255,255,0.05); padding: 10px; margin-top: 10px; border-radius: 8px; }
 
-button { background: var(--primary); color: white; padding: 0.6rem 1.25rem; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+#confirmation, #error { padding: 14px; margin-top: 16px; text-align: center; font-weight: 600; border-radius: 10px; }
 
-button:hover { background: #0d75d8; }
+#confirmation { background: rgba(34,197,94,0.2); color: #22c55e; }
 
-button:disabled { background: #888; cursor: not-allowed; }
+#error { background: rgba(239,68,68,0.2); color: #ef4444; }
 
-.message { margin-top: 1rem; padding: 1rem; border-radius: 6px; font-weight: 600; text-align: center; }
+img.responsive-img { max-width: 100%; height: auto; margin: 10px 0; }
 
-#confirmation { background: var(--complete); color: white; }
-
-#error { background: var(--error); color: white; }
-
-.hidden { display: none !important; }
-
-footer { text-align: center; padding: 1rem; font-size: 0.9rem; color: gray; }
-
-@media screen and (max-width: 600px) { h1 { font-size: 1.2rem; }
-
-.grid-table { grid-template-columns: repeat(6, 1fr); }
-
-.logo { width: 40px; }
-
-button, input, textarea { font-size: 0.95rem; } }
+@media screen and (max-width: 768px) { .container { padding: 12px; } button { width: 100%; margin-top: 10px; } }
 
