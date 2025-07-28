@@ -5,257 +5,189 @@
   <title>SFRP Staff Application</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f4f4f4;
-    }
-    header {
-      padding: 20px;
-      background-color: rgba(0,0,0,0.3);
-      text-align: center;
-    }
-    header img {
-      height: 50px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
     }
     .container {
       max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
+      margin: 2rem auto;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    h2 {
+      cursor: pointer;
+      background: #2a3b5d;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 20px;
     }
     .section {
-      margin-bottom: 20px;
-      border: 1px solid #555;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .section summary {
-      background: rgba(0,0,0,0.2);
-      cursor: pointer;
-      padding: 15px;
-      font-size: 1.1em;
-      font-weight: bold;
-    }
-    .section-content {
-      padding: 15px;
-    }
-    label {
-      display: block;
+      display: none;
       margin-top: 10px;
-      font-weight: bold;
     }
-    input[type="text"], textarea, select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      margin-top: 5px;
-    }
-    .grid {
+    .grid-container {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 5px;
       margin-top: 10px;
     }
-    .grid label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 40px;
-      background: #333;
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    textarea, input[type="text"], select {
+      width: 100%;
+      padding: 0.5rem;
       border-radius: 5px;
+      border: none;
+      margin-top: 5px;
+    }
+    .checkbox-group label {
+      display: inline-block;
+      margin-right: 10px;
     }
     .submit-btn {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #28a745;
-      border: none;
+      background-color: #4CAF50;
       color: white;
-      font-size: 16px;
+      padding: 10px 20px;
+      border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 20px;
+    }
+    .submit-btn:hover {
+      background-color: #45a049;
     }
     .admin-key {
       position: absolute;
       top: 10px;
-      right: 20px;
-      background: none;
-      color: #f4f4f4;
-      border: none;
-      font-size: 1.2em;
+      right: 10px;
+      color: #fff;
+      font-size: 20px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="SFRP Logo">
-    <button class="admin-key" onclick="adminLogin()">🔑</button>
-  </header>  <div class="container">
-    <form id="applicationForm">
-      <details class="section" open>
-        <summary>Section 1: Basic Information</summary>
-        <div class="section-content">
-          <label>1. Discord Username</label>
-          <input type="text" name="q1"><label>2. Discord ID</label>
-      <input type="text" name="q2">
-
-      <label>3. Roblox Username</label>
-      <input type="text" name="q3">
-
-      <label>4. Roblox ID</label>
-      <input type="text" name="q4">
-
-      <label>5. Time zone and age</label>
-      <input type="text" name="q5">
-    </div>
-  </details>
-
-  <details class="section">
-    <summary>Section 2: SFRP Knowledge</summary>
-    <div class="section-content">
-      <label>6. What does SFRP stand for?</label>
-      <input type="text" name="q6">
-
-      <label>7. Which of these is an ERLC command? (Select multiple)</label>
-      <input type="checkbox" name="q7" value=":cmds"> :cmds<br>
-      <input type="checkbox" name="q7" value=":spawncar"> :spawncar<br>
-      <input type="checkbox" name="q7" value=":startfire"> :startfire<br>
-      <input type="checkbox" name="q7" value=":bring all-civillians"> :bring all-civillians<br>
-
-      <label>8. Are you required to have a livery on as staff?</label>
-      <select name="q8">
+  <div class="container">
+    <h1>SFRP Staff Application</h1>
+    <form id="appForm">
+      <h2 onclick="toggleSection('s1')">Section 1: Basic Information</h2>
+      <div class="section" id="s1">
+        <label>Discord Username<input name="discordUsername" type="text"></label>
+        <label>Discord ID<input name="discordID" type="text"></label>
+        <label>Roblox Username<input name="robloxUsername" type="text"></label>
+        <label>Roblox ID<input name="robloxID" type="text"></label>
+        <label>Time Zone and Age<input name="timezoneAge" type="text"></label>
+      </div><h2 onclick="toggleSection('s2')">Section 2: SFRP Knowledge</h2>
+  <div class="section" id="s2">
+    <label>What does SFRP stand for?<input name="sfrpMeaning" type="text"></label>
+    <label>Which of these is an ERLC command?<br>
+      <input type="checkbox" name="commands" value=":cmds"> :cmds
+      <input type="checkbox" name="commands" value=":spawncar"> :spawncar
+      <input type="checkbox" name="commands" value=":startfire"> :startfire
+      <input type="checkbox" name="commands" value=":bring all-civilians"> :bring all-civilians
+    </label>
+    <label>Are you required to have a livery on as staff?
+      <select name="liveryRequired">
         <option value="Yes">Yes</option>
         <option value="No">No</option>
       </select>
+    </label>
+  </div>
+
+  <h2 onclick="toggleSection('s3')">Section 3: About You</h2>
+  <div class="section" id="s3">
+    <label>Name 3 of your best qualities:<textarea name="qualities"></textarea></label>
+    <label>Why do you want to join the team?<textarea name="joinReason"></textarea></label>
+    <label>Why should we pick you?<textarea name="pickReason"></textarea></label>
+    <label>One weakness and how it affects the team<textarea name="weakness"></textarea></label>
+    <label>What do you bring to the team?<textarea name="contribution"></textarea></label>
+  </div>
+
+  <h2 onclick="toggleSection('s4')">Section 4: Scenario-Based Questions</h2>
+  <div class="section" id="s4">
+    <label>Special event bring command situation<textarea name="eventScenario"></textarea></label>
+    <label>Unofficial mafia causing havoc<textarea name="mafiaScenario"></textarea></label>
+    <label>Someone pinged @everyone<textarea name="pingScenario"></textarea></label>
+    <label>Create your own high-risk scenario<textarea name="customScenario"></textarea></label>
+  </div>
+
+  <h2 onclick="toggleSection('s5')">Section 5: Rule Knowledge</h2>
+  <div class="section" id="s5">
+    <label>What is FRP?<textarea name="frp"></textarea></label>
+    <label>What is NLR?<textarea name="nlr"></textarea></label>
+    <label>What is VDM & RDM?<textarea name="vdmrdm"></textarea></label>
+    <label>What is Gun Motion and Cuff Rush?<textarea name="gunCuff"></textarea></label>
+    <label>What is Tool Abuse?<textarea name="toolAbuse"></textarea></label>
+    <label>What is Mod Call Spamming?<textarea name="modSpam"></textarea></label>
+    <label>What is NSFW Content?<textarea name="nsfw"></textarea></label>
+    <label>What is Profanity?<textarea name="profanity"></textarea></label>
+  </div>
+
+  <h2 onclick="toggleSection('s6')">Section 6: Map Grid Check</h2>
+  <div class="section" id="s6">
+    <p>Select exactly 4 grid boxes:</p>
+    <img src="map.png" alt="Map Grid" style="width:100%; margin-bottom:10px;">
+    <div class="grid-container">
+      ${[...Array(25).keys()].map(i => `<label><input type="checkbox" name="grid" value="${String.fromCharCode(65 + Math.floor(i / 5))}${(i % 5) + 1}"> ${String.fromCharCode(65 + Math.floor(i / 5))}${(i % 5) + 1}</label>`).join('')}
     </div>
-  </details>
+  </div>
 
-  <details class="section">
-    <summary>Section 3: About You</summary>
-    <div class="section-content">
-      <label>9. Name 3 of your best qualities.</label>
-      <textarea name="q9"></textarea>
-
-      <label>10. Why would you want to join the team?</label>
-      <textarea name="q10"></textarea>
-
-      <label>11. Why should we pick you?</label>
-      <textarea name="q11"></textarea>
-
-      <label>12. Name one weakness and how it might affect the team.</label>
-      <textarea name="q12"></textarea>
-
-      <label>13. What would you bring to the team?</label>
-      <textarea name="q13"></textarea>
-    </div>
-  </details>
-
-  <details class="section">
-    <summary>Section 4: Scenario-Based Questions</summary>
-    <div class="section-content">
-      <label>14. What would you do if only one person was brought to an event?</label>
-      <textarea name="q14"></textarea>
-
-      <label>15. How would you handle an unofficial mafia causing havoc?</label>
-      <textarea name="q15"></textarea>
-
-      <label>16. Someone pinged @everyone but no SHR/HR are online. What do you do?</label>
-      <textarea name="q16"></textarea>
-
-      <label>17. Create and handle your own high-risk scenario.</label>
-      <textarea name="q17"></textarea>
-    </div>
-  </details>
-
-  <details class="section">
-    <summary>Section 5: Rule Knowledge</summary>
-    <div class="section-content">
-      <label>18. What is FRP? (+example)</label>
-      <textarea name="q18"></textarea>
-
-      <label>19. What is NLR? (+example)</label>
-      <textarea name="q19"></textarea>
-
-      <label>20. What is VDM & RDM? (+example)</label>
-      <textarea name="q20"></textarea>
-
-      <label>21. What is Gun Motion and Cuff Rush? (+example)</label>
-      <textarea name="q21"></textarea>
-
-      <label>22. What is Tool Abuse? (+example)</label>
-      <textarea name="q22"></textarea>
-
-      <label>23. What is Mod Call Spamming? (+example)</label>
-      <textarea name="q23"></textarea>
-
-      <label>24. What is NSFW Content? (+example)</label>
-      <textarea name="q24"></textarea>
-
-      <label>25. What is Profanity? (+example)</label>
-      <textarea name="q25"></textarea>
-    </div>
-  </details>
-
-  <details class="section">
-    <summary>Section 6: Map Grid Check</summary>
-    <div class="section-content">
-      <label>26. Check the 4 correct boxes from this map:</label>
-      <img src="map.png" alt="Map" style="width:100%; border-radius:10px; margin:10px 0;">
-      <div class="grid">
-        <!-- 5x5 grid = 25 checkboxes -->
-        ${Array.from({ length: 25 }).map((_, i) => `
-          <label><input type="checkbox" name="q26" value="${i+1}"></label>
-        `).join('')}
-      </div>
-    </div>
-  </details>
-
-  <details class="section">
-    <summary>Section 7: Final Confirmation</summary>
-    <div class="section-content">
-      <label>27. Do you understand that you are required to follow all rules both on and off duty?</label>
-      <select name="q27"><option value="Yes">Yes</option><option value="No">No</option></select>
-
-      <label>28. Do you understand that your application can be denied?</label>
-      <select name="q28"><option value="Yes">Yes</option><option value="No">No</option></select>
-
-      <label>29. Do you understand that using AI will result in denial?</label>
-      <select name="q29"><option value="Yes">Yes</option><option value="No">No</option></select>
-
-      <label>30. Sign with your Roblox username</label>
-      <input type="text" name="q30">
-
-      <label>31. Anything else to tell us? (Optional)</label>
-      <textarea name="q31"></textarea>
-    </div>
-  </details>
+  <h2 onclick="toggleSection('s7')">Section 7: Final Confirmation</h2>
+  <div class="section" id="s7">
+    <label>Do you understand you must follow all rules?<select name="rulesUnderstand"><option value="Yes">Yes</option><option value="No">No</option></select></label>
+    <label>Do you understand your application can be denied?<select name="denyUnderstand"><option value="Yes">Yes</option><option value="No">No</option></select></label>
+    <label>Do you understand AI use leads to denial?<select name="aiUnderstand"><option value="Yes">Yes</option><option value="No">No</option></select></label>
+    <label>Sign with Roblox username<input name="signature" type="text"></label>
+    <label>Anything to add?<textarea name="finalNote"></textarea></label>
+  </div>
 
   <button class="submit-btn" type="submit">Submit Application</button>
 </form>
 
   </div>  <script>
-    function adminLogin() {
-      const key = prompt("Enter admin key:");
-      if (key === "3434") alert("Admin access granted.");
-      else alert("Wrong key.");
+    const sections = document.querySelectorAll(".section");
+    function toggleSection(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
-    document.getElementById("applicationForm").addEventListener("submit", async function(e) {
+    document.getElementById("appForm").addEventListener("submit", async function(e) {
       e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
-      const entries = [...data.entries()];
+      const form = new FormData(e.target);
+      const data = {};
+      form.forEach((value, key) => {
+        if (data[key]) {
+          if (!Array.isArray(data[key])) data[key] = [data[key]];
+          data[key].push(value);
+        } else {
+          data[key] = value;
+        }
+      });
 
-      let content = entries.map(([k, v]) => `**${k}**: ${v}`).join("\n");
+      const embed = {
+        title: "New SFRP Application",
+        color: 3447003,
+        fields: Object.entries(data).map(([key, value]) => ({
+          name: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+          value: Array.isArray(value) ? value.join(", ") : value || "(None)",
+          inline: false
+        }))
+      };
+
       await fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ embeds: [embed] })
       });
-      alert("Application submitted!");
-      form.reset();
+
+      alert("Application Submitted!");
+      e.target.reset();
     });
   </script></body>
 </html>
