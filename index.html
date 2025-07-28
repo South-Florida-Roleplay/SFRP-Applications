@@ -3,191 +3,260 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SFRP Staff Application</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #fff;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: white;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
     }
     .container {
       max-width: 800px;
-      margin: 2rem auto;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    }
-    h2 {
-      cursor: pointer;
-      background: #2a3b5d;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 20px;
+      margin: 0 auto;
+      padding: 20px;
     }
     .section {
+      background-color: #1f2937;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .section summary {
+      padding: 15px;
+      cursor: pointer;
+      font-size: 1.2em;
+      background-color: #111827;
+      user-select: none;
+    }
+    .section form > div {
+      padding: 15px;
+      border-top: 1px solid #374151;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+    }
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+    }
+    .submit-button {
+      background: #3b82f6;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .admin-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 5px 10px;
+      background: #374151;
+      border-radius: 5px;
+    }
+    .hidden {
       display: none;
-      margin-top: 10px;
     }
     .grid-container {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 5px;
-      margin-top: 10px;
+      gap: 10px;
     }
-    label {
+    .grid-container label {
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      width: 100px;
       display: block;
-      margin-top: 10px;
-    }
-    textarea, input[type="text"], select {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 5px;
-      border: none;
-      margin-top: 5px;
-    }
-    .checkbox-group label {
-      display: inline-block;
-      margin-right: 10px;
-    }
-    .submit-btn {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .submit-btn:hover {
-      background-color: #45a049;
-    }
-    .admin-key {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
+      margin: 0 auto 20px;
     }
   </style>
 </head>
 <body>
+  <div class="admin-btn" onclick="unlockAdmin()">🔑</div>
   <div class="container">
-    <h1>SFRP Staff Application</h1>
-    <form id="appForm">
-      <h2 onclick="toggleSection('s1')">Section 1: Basic Information</h2>
-      <div class="section" id="s1">
-        <label>Discord Username<input name="discordUsername" type="text"></label>
-        <label>Discord ID<input name="discordID" type="text"></label>
-        <label>Roblox Username<input name="robloxUsername" type="text"></label>
-        <label>Roblox ID<input name="robloxID" type="text"></label>
-        <label>Time Zone and Age<input name="timezoneAge" type="text"></label>
-      </div><h2 onclick="toggleSection('s2')">Section 2: SFRP Knowledge</h2>
-  <div class="section" id="s2">
-    <label>What does SFRP stand for?<input name="sfrpMeaning" type="text"></label>
-    <label>Which of these is an ERLC command?<br>
-      <input type="checkbox" name="commands" value=":cmds"> :cmds
-      <input type="checkbox" name="commands" value=":spawncar"> :spawncar
-      <input type="checkbox" name="commands" value=":startfire"> :startfire
-      <input type="checkbox" name="commands" value=":bring all-civilians"> :bring all-civilians
-    </label>
-    <label>Are you required to have a livery on as staff?
-      <select name="liveryRequired">
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </label>
-  </div>
-
-  <h2 onclick="toggleSection('s3')">Section 3: About You</h2>
-  <div class="section" id="s3">
-    <label>Name 3 of your best qualities:<textarea name="qualities"></textarea></label>
-    <label>Why do you want to join the team?<textarea name="joinReason"></textarea></label>
-    <label>Why should we pick you?<textarea name="pickReason"></textarea></label>
-    <label>One weakness and how it affects the team<textarea name="weakness"></textarea></label>
-    <label>What do you bring to the team?<textarea name="contribution"></textarea></label>
-  </div>
-
-  <h2 onclick="toggleSection('s4')">Section 4: Scenario-Based Questions</h2>
-  <div class="section" id="s4">
-    <label>Special event bring command situation<textarea name="eventScenario"></textarea></label>
-    <label>Unofficial mafia causing havoc<textarea name="mafiaScenario"></textarea></label>
-    <label>Someone pinged @everyone<textarea name="pingScenario"></textarea></label>
-    <label>Create your own high-risk scenario<textarea name="customScenario"></textarea></label>
-  </div>
-
-  <h2 onclick="toggleSection('s5')">Section 5: Rule Knowledge</h2>
-  <div class="section" id="s5">
-    <label>What is FRP?<textarea name="frp"></textarea></label>
-    <label>What is NLR?<textarea name="nlr"></textarea></label>
-    <label>What is VDM & RDM?<textarea name="vdmrdm"></textarea></label>
-    <label>What is Gun Motion and Cuff Rush?<textarea name="gunCuff"></textarea></label>
-    <label>What is Tool Abuse?<textarea name="toolAbuse"></textarea></label>
-    <label>What is Mod Call Spamming?<textarea name="modSpam"></textarea></label>
-    <label>What is NSFW Content?<textarea name="nsfw"></textarea></label>
-    <label>What is Profanity?<textarea name="profanity"></textarea></label>
-  </div>
-
-  <h2 onclick="toggleSection('s6')">Section 6: Map Grid Check</h2>
-  <div class="section" id="s6">
-    <p>Select exactly 4 grid boxes:</p>
-    <img src="map.png" alt="Map Grid" style="width:100%; margin-bottom:10px;">
-    <div class="grid-container">
-      ${[...Array(25).keys()].map(i => `<label><input type="checkbox" name="grid" value="${String.fromCharCode(65 + Math.floor(i / 5))}${(i % 5) + 1}"> ${String.fromCharCode(65 + Math.floor(i / 5))}${(i % 5) + 1}</label>`).join('')}
-    </div>
-  </div>
-
-  <h2 onclick="toggleSection('s7')">Section 7: Final Confirmation</h2>
-  <div class="section" id="s7">
-    <label>Do you understand you must follow all rules?<select name="rulesUnderstand"><option value="Yes">Yes</option><option value="No">No</option></select></label>
-    <label>Do you understand your application can be denied?<select name="denyUnderstand"><option value="Yes">Yes</option><option value="No">No</option></select></label>
-    <label>Do you understand AI use leads to denial?<select name="aiUnderstand"><option value="Yes">Yes</option><option value="No">No</option></select></label>
-    <label>Sign with Roblox username<input name="signature" type="text"></label>
-    <label>Anything to add?<textarea name="finalNote"></textarea></label>
-  </div>
-
-  <button class="submit-btn" type="submit">Submit Application</button>
-</form>
-
+    <img src="logo.png" class="logo" alt="SFRP Logo">
+    <header>SFRP Staff Application</header>
+    <form id="applicationForm">
+      <!-- Sections and Questions inserted dynamically here -->
+    </form>
   </div>  <script>
-    const sections = document.querySelectorAll(".section");
-    function toggleSection(id) {
-      const el = document.getElementById(id);
-      el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
+    const sections = [
+      {
+        title: "Section 1: Basic Information",
+        questions: [
+          "Discord Username",
+          "Discord ID",
+          "Roblox Username",
+          "Roblox ID",
+          "State your time zone and age"
+        ]
+      },
+      {
+        title: "Section 2: SFRP Knowledge",
+        questions: [
+          "What does SFRP stand for?",
+          "Which of these is an ERLC command?",
+          "Are you required to have a livery on as staff?"
+        ]
+      },
+      {
+        title: "Section 3: About You",
+        questions: [
+          "Name 3 of your best qualities.",
+          "Why would you want to join the team?",
+          "Why should we pick you?",
+          "Name one weakness you have and explain how it might affect the team.",
+          "What would you bring to the team?"
+        ]
+      },
+      {
+        title: "Section 4: Scenario-Based Questions",
+        questions: [
+          "You got permission to start a special event and used the bring all command, but only one person arrived. What would you do?",
+          "How would you handle an unofficial mafia causing havoc with no permissions in logs?",
+          "Someone pinged @everyone in Discord but no HR/SHR is online. What would you do?",
+          "Create your own high-risk scenario and explain how you would handle it."
+        ]
+      },
+      {
+        title: "Section 5: Rule Knowledge",
+        questions: [
+          "Explain FRP (Fail Roleplay).",
+          "Explain NLR (New Life Rule).",
+          "Explain VDM & RDM.",
+          "Explain Gun Motion and Cuff Rush.",
+          "Explain Tool Abuse.",
+          "Explain Mod Call Spamming.",
+          "Explain NSFW Content.",
+          "Explain Profanity."
+        ]
+      },
+      {
+        title: "Section 6: Map Grid Check",
+        questions: [
+          "Check the boxes for the locations (City Gas Station, Housing Suburb, High Rock Entrance, Police Station)"
+        ]
+      },
+      {
+        title: "Section 7: Final Confirmation",
+        questions: [
+          "Do you understand that you are required to follow all rules both on and off duty?",
+          "Do you understand that your application can be denied?",
+          "Do you understand that using AI will result in your application being denied?",
+          "Sign with your Roblox username to confirm.",
+          "Anything you would like to ask or tell the reader? (Optional)"
+        ]
+      }
+    ];
 
-    document.getElementById("appForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const form = new FormData(e.target);
-      const data = {};
-      form.forEach((value, key) => {
-        if (data[key]) {
-          if (!Array.isArray(data[key])) data[key] = [data[key]];
-          data[key].push(value);
+    const form = document.getElementById('applicationForm');
+
+    sections.forEach(section => {
+      const details = document.createElement('details');
+      details.className = 'section';
+
+      const summary = document.createElement('summary');
+      summary.textContent = section.title;
+      details.appendChild(summary);
+
+      const innerDiv = document.createElement('div');
+
+      section.questions.forEach(q => {
+        const label = document.createElement('label');
+        label.innerHTML = q;
+        if (q.includes("Check the boxes")) {
+          const grid = document.createElement('div');
+          grid.className = 'grid-container';
+          for (let i = 0; i < 25; i++) {
+            const checkboxLabel = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'grid';
+            checkbox.value = `Box ${i+1}`;
+            checkboxLabel.appendChild(checkbox);
+            checkboxLabel.append(`Box ${i+1}`);
+            grid.appendChild(checkboxLabel);
+          }
+          innerDiv.appendChild(label);
+          innerDiv.appendChild(grid);
         } else {
-          data[key] = value;
+          const input = document.createElement('textarea');
+          input.name = q;
+          input.rows = 3;
+          innerDiv.appendChild(label);
+          innerDiv.appendChild(input);
         }
       });
 
-      const embed = {
-        title: "New SFRP Application",
-        color: 3447003,
-        fields: Object.entries(data).map(([key, value]) => ({
-          name: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
-          value: Array.isArray(value) ? value.join(", ") : value || "(None)",
-          inline: false
-        }))
-      };
+      details.appendChild(innerDiv);
+      form.appendChild(details);
+    });
 
-      await fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ embeds: [embed] })
+    const submitBtn = document.createElement('button');
+    submitBtn.textContent = 'Submit Application';
+    submitBtn.className = 'submit-button';
+    submitBtn.type = 'button';
+    submitBtn.onclick = submitApplication;
+    form.appendChild(submitBtn);
+
+    function unlockAdmin() {
+      const pass = prompt("Enter admin key:");
+      if (pass === '3434') {
+        alert("Admin Mode Enabled");
+        // Placeholder for admin actions
+      } else {
+        alert("Wrong password");
+      }
+    }
+
+    function submitApplication() {
+      const formData = new FormData(form);
+      const selections = [];
+      formData.forEach((val, key) => {
+        selections.push(`**${key}**:\n${val}`);
       });
 
-      alert("Application Submitted!");
-      e.target.reset();
-    });
+      const embed = {
+        title: "New Staff Application",
+        color: 3447003,
+        description: selections.join("\n\n"),
+        timestamp: new Date().toISOString()
+      };
+
+      fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ embeds: [embed] })
+      }).then(() => {
+        alert("Application Submitted");
+        form.reset();
+      }).catch(err => {
+        alert("Submission failed.");
+        console.error(err);
+      });
+    }
   </script></body>
 </html>
