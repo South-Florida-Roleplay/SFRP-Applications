@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SFRP Staff Application</title>
@@ -92,6 +91,11 @@
       display: block;
       margin: 0 auto 20px;
     }
+    .map-image {
+      width: 100%;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -102,7 +106,8 @@
     <form id="applicationForm">
       <!-- Sections and Questions inserted dynamically here -->
     </form>
-  </div>  <script>
+  </div>
+  <script>
     const sections = [
       {
         title: "Section 1: Basic Information",
@@ -118,7 +123,7 @@
         title: "Section 2: SFRP Knowledge",
         questions: [
           "What does SFRP stand for?",
-          "Which of these is an ERLC command?",
+          "Which of these are ERLC commands?",
           "Are you required to have a livery on as staff?"
         ]
       },
@@ -144,8 +149,8 @@
       {
         title: "Section 5: Rule Knowledge",
         questions: [
-          "Explain FRP (Fail Roleplay).",
-          "Explain NLR (New Life Rule).",
+          "Explain FRP.",
+          "Explain NLR.",
           "Explain VDM & RDM.",
           "Explain Gun Motion and Cuff Rush.",
           "Explain Tool Abuse.",
@@ -170,93 +175,111 @@
           "Anything you would like to ask or tell the reader? (Optional)"
         ]
       }
-    ];
+    ];const form = document.getElementById('applicationForm');
 
-    const form = document.getElementById('applicationForm');
+sections.forEach(section => {
+  const details = document.createElement('details');
+  details.className = 'section';
 
-    sections.forEach(section => {
-      const details = document.createElement('details');
-      details.className = 'section';
+  const summary = document.createElement('summary');
+  summary.textContent = section.title;
+  details.appendChild(summary);
 
-      const summary = document.createElement('summary');
-      summary.textContent = section.title;
-      details.appendChild(summary);
+  const innerDiv = document.createElement('div');
 
-      const innerDiv = document.createElement('div');
+  section.questions.forEach(q => {
+    const label = document.createElement('label');
+    label.innerHTML = q;
 
-      section.questions.forEach(q => {
-        const label = document.createElement('label');
-        label.innerHTML = q;
-        if (q.includes("Check the boxes")) {
-          const grid = document.createElement('div');
-          grid.className = 'grid-container';
-          for (let i = 0; i < 25; i++) {
-            const checkboxLabel = document.createElement('label');
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.name = 'grid';
-            checkbox.value = `Box ${i+1}`;
-            checkboxLabel.appendChild(checkbox);
-            checkboxLabel.append(`Box ${i+1}`);
-            grid.appendChild(checkboxLabel);
-          }
-          innerDiv.appendChild(label);
-          innerDiv.appendChild(grid);
-        } else {
-          const input = document.createElement('textarea');
-          input.name = q;
-          input.rows = 3;
-          innerDiv.appendChild(label);
-          innerDiv.appendChild(input);
-        }
+    if (q.includes("Which of these are ERLC commands?")) {
+      const choices = ["/modcall", "/help", "/kick", "/ban"];
+      choices.forEach(choice => {
+        const checkboxLabel = document.createElement('label');
+        checkboxLabel.style.display = 'block';
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = q;
+        checkbox.value = choice;
+        checkboxLabel.appendChild(checkbox);
+        checkboxLabel.appendChild(document.createTextNode(choice));
+        innerDiv.appendChild(checkboxLabel);
       });
+    } else if (q.includes("Check the boxes for the locations")) {
+      const mapImage = document.createElement('img');
+      mapImage.src = "map.png";
+      mapImage.className = "map-image";
+      innerDiv.appendChild(mapImage);
 
-      details.appendChild(innerDiv);
-      form.appendChild(details);
-    });
-
-    const submitBtn = document.createElement('button');
-    submitBtn.textContent = 'Submit Application';
-    submitBtn.className = 'submit-button';
-    submitBtn.type = 'button';
-    submitBtn.onclick = submitApplication;
-    form.appendChild(submitBtn);
-
-    function unlockAdmin() {
-      const pass = prompt("Enter admin key:");
-      if (pass === '3434') {
-        alert("Admin Mode Enabled");
-        // Placeholder for admin actions
-      } else {
-        alert("Wrong password");
+      const grid = document.createElement('div');
+      grid.className = 'grid-container';
+      for (let i = 0; i < 25; i++) {
+        const checkboxLabel = document.createElement('label');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'grid';
+        checkbox.value = `Box ${i+1}`;
+        checkboxLabel.appendChild(checkbox);
+        checkboxLabel.append(`Box ${i+1}`);
+        grid.appendChild(checkboxLabel);
       }
+      innerDiv.appendChild(label);
+      innerDiv.appendChild(grid);
+    } else {
+      const input = document.createElement('textarea');
+      input.name = q;
+      input.rows = 3;
+      innerDiv.appendChild(label);
+      innerDiv.appendChild(input);
     }
+  });
 
-    function submitApplication() {
-      const formData = new FormData(form);
-      const selections = [];
-      formData.forEach((val, key) => {
-        selections.push(`**${key}**:\n${val}`);
-      });
+  details.appendChild(innerDiv);
+  form.appendChild(details);
+});
 
-      const embed = {
-        title: "New Staff Application",
-        color: 3447003,
-        description: selections.join("\n\n"),
-        timestamp: new Date().toISOString()
-      };
+const submitBtn = document.createElement('button');
+submitBtn.textContent = 'Submit Application';
+submitBtn.className = 'submit-button';
+submitBtn.type = 'button';
+submitBtn.onclick = submitApplication;
+form.appendChild(submitBtn);
 
-      fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ embeds: [embed] })
-      }).then(() => {
-        alert("Application Submitted");
-        form.reset();
-      }).catch(err => {
-        alert("Submission failed.");
-        console.error(err);
-      });
-    }
-  </script></body>
+function unlockAdmin() {
+  const pass = prompt("Enter admin key:");
+  if (pass === '3434') {
+    alert("Admin Mode Enabled");
+  } else {
+    alert("Wrong password");
+  }
+}
+
+function submitApplication() {
+  const formData = new FormData(form);
+  const selections = [];
+  formData.forEach((val, key) => {
+    selections.push(`**${key}**:\n${val}`);
+  });
+
+  const embed = {
+    title: "New Staff Application",
+    color: 3447003,
+    description: selections.join("\n\n"),
+    timestamp: new Date().toISOString()
+  };
+
+  fetch("https://discord.com/api/webhooks/1397667334197477406/eZ71Y9AGK1C7tVth-yMrtaeROiTQXBT8u8fFmc0xoGvb-QcaFjeAImTPh13_nK4eNu4A", {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ embeds: [embed] })
+  }).then(() => {
+    alert("Application Submitted");
+    form.reset();
+  }).catch(err => {
+    alert("Submission failed.");
+    console.error(err);
+  });
+}
+
+  </script>
+</body>
 </html>
