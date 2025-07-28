@@ -1,186 +1,182 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SFRP Staff Application</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-    body {
-      margin: 0;
-      background: linear-gradient(to right, #141e30, #243b55);
-      color: white;
-    }
-    header {
-      padding: 20px;
-      text-align: center;
-      font-size: 2em;
-      font-weight: bold;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .section {
-      background-color: #1f2937;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .section summary {
-      padding: 15px;
-      cursor: pointer;
-      font-size: 1.2em;
-      background-color: #111827;
-      user-select: none;
-    }
-    .section form > div {
-      padding: 15px;
-      border-top: 1px solid #374151;
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 5px;
-    }
-    input[type="checkbox"] {
-      width: auto;
-      margin-right: 10px;
-    }
-    .submit-button {
-      background: #3b82f6;
-      color: white;
-      padding: 12px 25px;
-      font-size: 1em;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .admin-btn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 18px;
-      padding: 5px 10px;
-      background: #374151;
-      border-radius: 5px;
-    }
-    .hidden {
-      display: none;
-    }
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-    }
-    .grid-container label {
-      display: flex;
-      align-items: center;
-    }
-    .logo {
-      width: 100px;
-      display: block;
-      margin: 0 auto 20px;
-    }
-    .map-image {
-      width: 100%;
-      margin-bottom: 15px;
-      border-radius: 8px;
-    }
-  </style>
-</head>
-<body>
-  <div class="admin-btn" onclick="unlockAdmin()">🔑</div>
-  <div class="container">
-    <img src="logo.png" class="logo" alt="SFRP Logo">
-    <header>SFRP Staff Application</header>
-    <form id="applicationForm">
-      <!-- Sections and Questions inserted dynamically here -->
-    </form>
-  </div>
-  <script>
-    const sections = [
-      {
-        title: "Section 1: Basic Information",
-        questions: [
-          "Discord Username",
-          "Discord ID",
-          "Roblox Username",
-          "Roblox ID",
-          "State your time zone and age"
-        ]
-      },
-      {
-        title: "Section 2: SFRP Knowledge",
-        questions: [
-          "What does SFRP stand for?",
-          "Which of these are ERLC commands?",
-          "Are you required to have a livery on as staff?"
-        ]
-      },
-      {
-        title: "Section 3: About You",
-        questions: [
-          "Name 3 of your best qualities.",
-          "Why would you want to join the team?",
-          "Why should we pick you?",
-          "Name one weakness you have and explain how it might affect the team.",
-          "What would you bring to the team?"
-        ]
-      },
-      {
-        title: "Section 4: Scenario-Based Questions",
-        questions: [
-          "You got permission to start a special event and used the bring all command, but only one person arrived. What would you do?",
-          "How would you handle an unofficial mafia causing havoc with no permissions in logs?",
-          "Someone pinged @everyone in Discord but no HR/SHR is online. What would you do?",
-          "Create your own high-risk scenario and explain how you would handle it."
-        ]
-      },
-      {
-        title: "Section 5: Rule Knowledge",
-        questions: [
-          "Explain FRP.",
-          "Explain NLR.",
-          "Explain VDM & RDM.",
-          "Explain Gun Motion and Cuff Rush.",
-          "Explain Tool Abuse.",
-          "Explain Mod Call Spamming.",
-          "Explain NSFW Content.",
-          "Explain Profanity."
-        ]
-      },
-      {
-        title: "Section 6: Map Grid Check",
-        questions: [
-          "Check the boxes for the locations (City Gas Station, Housing Suburb, High Rock Entrance, Police Station)"
-        ]
-      },
-      {
-        title: "Section 7: Final Confirmation",
-        questions: [
-          "Do you understand that you are required to follow all rules both on and off duty?",
-          "Do you understand that your application can be denied?",
-          "Do you understand that using AI will result in your application being denied?",
-          "Sign with your Roblox username to confirm.",
-          "Anything you would like to ask or tell the reader? (Optional)"
-        ]
-      }
+<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8" />      <meta name="viewport" content="width=device-width, initial-scale=1.0" />      <title>SFRP Staff Application</title>    
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">    
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>    
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>    
+  <style>    
+    * {    
+      box-sizing: border-box;    
+      font-family: 'Inter', sans-serif;    
+    }    
+    body {    
+      margin: 0;    
+      background: linear-gradient(to right, #141e30, #243b55);    
+      color: white;    
+    }    
+    header {    
+      padding: 20px;    
+      text-align: center;    
+      font-size: 2em;    
+      font-weight: bold;    
+    }    
+    .container {    
+      max-width: 800px;    
+      margin: 0 auto;    
+      padding: 20px;    
+    }    
+    .section {    
+      background-color: #1f2937;    
+      margin-bottom: 10px;    
+      border-radius: 8px;    
+      overflow: hidden;    
+    }    
+    .section summary {    
+      padding: 15px;    
+      cursor: pointer;    
+      font-size: 1.2em;    
+      background-color: #111827;    
+      user-select: none;    
+    }    
+    .section form > div {    
+      padding: 15px;    
+      border-top: 1px solid #374151;    
+    }    
+    input, textarea, select {    
+      width: 100%;    
+      padding: 10px;    
+      margin-top: 5px;    
+      margin-bottom: 15px;    
+      border: none;    
+      border-radius: 5px;    
+    }    
+    input[type="checkbox"] {    
+      width: auto;    
+      margin-right: 10px;    
+    }    
+    .submit-button {    
+      background: #3b82f6;    
+      color: white;    
+      padding: 12px 25px;    
+      font-size: 1em;    
+      border: none;    
+      border-radius: 6px;    
+      cursor: pointer;    
+    }    
+    .admin-btn {    
+      position: fixed;    
+      top: 10px;    
+      right: 10px;    
+      cursor: pointer;    
+      font-size: 18px;    
+      padding: 5px 10px;    
+      background: #374151;    
+      border-radius: 5px;    
+    }    
+    .hidden {    
+      display: none;    
+    }    
+    .grid-container {    
+      display: grid;    
+      grid-template-columns: repeat(5, 1fr);    
+      gap: 10px;    
+    }    
+    .grid-container label {    
+      display: flex;    
+      align-items: center;    
+    }    
+    .logo {    
+      width: 100px;    
+      display: block;    
+      margin: 0 auto 20px;    
+    }    
+    .map-image {    
+      width: 100%;    
+      margin-bottom: 15px;    
+      border-radius: 8px;    
+    }    
+  </style>    
+</head>    
+<body>    
+  <div class="admin-btn" onclick="unlockAdmin()">🔑</div>    
+  <div class="container">    
+    <img src="logo.png" class="logo" alt="SFRP Logo">    
+    <header>SFRP Staff Application</header>    
+    <form id="applicationForm">    
+      <!-- Sections and Questions inserted dynamically here -->    
+    </form>    
+  </div>    
+  <script>    
+    const sections = [    
+      {    
+        title: "Section 1: Basic Information",    
+        questions: [    
+          "Discord Username",    
+          "Discord ID",    
+          "Roblox Username",    
+          "Roblox ID",    
+          "State your time zone and age"    
+        ]    
+      },    
+      {    
+        title: "Section 2: SFRP Knowledge",    
+        questions: [    
+          "What does SFRP stand for?",    
+          "Which of these are ERLC commands?",    
+          "Are you required to have a livery on as staff?"    
+        ]    
+      },    
+      {    
+        title: "Section 3: About You",    
+        questions: [    
+          "Name 3 of your best qualities.",    
+          "Why would you want to join the team?",    
+          "Why should we pick you?",    
+          "Name one weakness you have and explain how it might affect the team.",    
+          "What would you bring to the team?"    
+        ]    
+      },    
+      {    
+        title: "Section 4: Scenario-Based Questions",    
+        questions: [    
+          "You got permission to start a special event and used the bring all command, but only one person arrived. What would you do?",    
+          "How would you handle an unofficial mafia causing havoc with no permissions in logs?",    
+          "Someone pinged @everyone in Discord but no HR/SHR is online. What would you do?",    
+          "Create your own high-risk scenario and explain how you would handle it."    
+        ]    
+      },    
+      {    
+        title: "Section 5: Rule Knowledge",    
+        questions: [    
+          "Explain FRP.",    
+          "Explain NLR.",    
+          "Explain VDM & RDM.",    
+          "Explain Gun Motion and Cuff Rush.",    
+          "Explain Tool Abuse.",    
+          "Explain Mod Call Spamming.",    
+          "Explain NSFW Content.",    
+          "Explain Profanity."    
+        ]    
+      },    
+      {    
+        title: "Section 6: Map Grid Check",    
+        questions: [    
+          "Check the boxes for the locations (City Gas Station, Housing Suburb, High Rock Entrance, Police Station)"    
+        ]    
+      },    
+      {    
+        title: "Section 7: Final Confirmation",    
+        questions: [    
+          "Do you understand that you are required to follow all rules both on and off duty?",    
+          "Do you understand that your application can be denied?",    
+          "Do you understand that using AI will result in your application being denied?",    
+          "Sign with your Roblox username to confirm.",    
+          "Anything you would like to ask or tell the reader? (Optional)"    
+        ]    
+      }    
     ];const form = document.getElementById('applicationForm');
 
 sections.forEach(section => {
   const details = document.createElement('details');
   details.className = 'section';
-
   const summary = document.createElement('summary');
   summary.textContent = section.title;
   details.appendChild(summary);
@@ -192,7 +188,7 @@ sections.forEach(section => {
     label.innerHTML = q;
 
     if (q.includes("Which of these are ERLC commands?")) {
-      const choices = ["/modcall", "/help", "/kick", "/ban"];
+      const choices = [":startfire", ":bringallcivillians", ":kick", ":j"];
       choices.forEach(choice => {
         const checkboxLabel = document.createElement('label');
         checkboxLabel.style.display = 'block';
@@ -217,9 +213,9 @@ sections.forEach(section => {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.name = 'grid';
-        checkbox.value = `Box ${i+1}`;
+        checkbox.value = `Box ${i + 1}`;
         checkboxLabel.appendChild(checkbox);
-        checkboxLabel.append(`Box ${i+1}`);
+        checkboxLabel.append(`Box ${i + 1}`);
         grid.appendChild(checkboxLabel);
       }
       innerDiv.appendChild(label);
@@ -257,10 +253,11 @@ function submitApplication() {
   const formData = new FormData(form);
   const selections = [];
   formData.forEach((val, key) => {
-    selections.push(`**${key}**:\n${val}`);
-  });
+    selections.push(`${key}:
 
-  const embed = {
+${val}`); });
+
+const embed = {
     title: "New Staff Application",
     color: 3447003,
     description: selections.join("\n\n"),
@@ -280,6 +277,6 @@ function submitApplication() {
   });
 }
 
-  </script>
-</body>
+  </script>    
+</body>    
 </html>
